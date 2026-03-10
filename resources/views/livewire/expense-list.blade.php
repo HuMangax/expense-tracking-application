@@ -1,31 +1,31 @@
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-    <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Expenses</h1>
-                <p class="text-gray-600 dark:text-gray-400 mt-1">Manage and track your expenses</p>
+<div class="min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
+    <div class="bg-gradient-to-r from-blue-600 to-cyan-600 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-white">Expenses</h1>
+                    <p class="text-blue-100 mt-1">Manage and track your expenses</p>
+                </div>
+                
+                <a href="/expenses/create"
+                    class="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg font-semibold transition backdrop-blur-sm flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Expense
+                </a>
+                
             </div>
-            
-            <a href="/expenses/create"
-                class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
-                Add Expense
-            </a>
-            
         </div>
     </div>
-</div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         @if (session()->has('message'))
             <div
-                class="mb-6 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 px-4 py-3 rounded-lg flex items-center justify-between">
+                class="mb-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 px-4 py-3 rounded-lg flex items-center justify-between">
                 <span>{{ session('message') }}</span>
-                <button onclick="this.parentElement.remove()" class="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-200">
+                <button onclick="this.parentElement.remove()" class="text-green-600 hover:text-green-800 dark:hover:text-green-400">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -33,7 +33,7 @@
             </div>
         @endif
 
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 transition-colors duration-200">
+        <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 mb-6 transition-colors duration-300">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Filters</h3>
                 <button wire:click="$toggle('showFilters')"
@@ -46,13 +46,13 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search</label>
                     <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search expenses..."
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400">
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category</label>
                     <select wire:model.live="selectedCategory"
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">All Categories</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -63,18 +63,18 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Start Date</label>
                     <input type="date" wire:model.live="startDate"
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark]">
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark]">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">End Date</label>
                     <input type="date" wire:model.live="endDate"
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark]">
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark]">
                 </div>
             </div>
 
             @if($showFilters)
-                <div class="mt-4 flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="mt-4 flex items-center justify-between pt-4 border-t border-gray-200 dark:border-neutral-700">
                     <div class="text-sm text-gray-600 dark:text-gray-400">
                         Showing {{ $expenses->count() }} of {{ $expenses->total() }} expenses
                         <span class="font-semibold text-gray-900 dark:text-gray-200">• Total: ${{ number_format($total, 2) }}</span>
@@ -86,13 +86,13 @@
             @endif
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-colors duration-200">
+        <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md overflow-hidden transition-colors duration-300">
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
-                    <thead class="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                    <thead class="bg-gray-50 dark:bg-neutral-700 border-b border-gray-200 dark:border-neutral-600">
                         <tr>
                             <th wire:click="sortBy('date')"
-                                class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-600 transition-colors">
                                 <div class="flex items-center gap-2">
                                     Date
                                     @if($sortBy === 'date')
@@ -107,7 +107,7 @@
                                 Category
                             </th>
                             <th wire:click="sortBy('title')"
-                                class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-600 transition-colors">
                                 <div class="flex items-center gap-2">
                                     Title
                                     @if($sortBy === 'title')
@@ -122,7 +122,7 @@
                                 Description
                             </th>
                             <th wire:click="sortBy('amount')"
-                                class="px-6 py-4 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                class="px-6 py-4 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-600 transition-colors">
                                 <div class="flex items-center justify-end gap-2">
                                     Amount
                                     @if($sortBy === 'amount')
@@ -138,9 +138,9 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                         @forelse($expenses as $expense)
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors" wire:key="expense-{{ $expense->id }}">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-neutral-700/50 transition-colors" wire:key="expense-{{ $expense->id }}">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
                                         {{ $expense->date->format('M d, Y') }}
@@ -211,7 +211,7 @@
                                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No expenses found</h3>
                                         <p class="text-gray-600 dark:text-gray-400 mb-4">Start tracking your expenses to see them here.</p>
                                         <a href="/expenses/create"
-                                            class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                                            class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
                                             Add Your First Expense
                                         </a>
                                     </div>
@@ -223,7 +223,7 @@
             </div>
 
             @if($expenses->hasPages())
-                <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                <div class="px-6 py-4 border-t border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
                     {{ $expenses->links() }}
                 </div>
             @endif

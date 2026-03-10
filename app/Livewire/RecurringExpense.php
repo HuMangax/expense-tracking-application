@@ -9,6 +9,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 
+#[Title("Recurring Expenses")]
 class RecurringExpense extends Component
 {
     public $showDeleteModal = false;

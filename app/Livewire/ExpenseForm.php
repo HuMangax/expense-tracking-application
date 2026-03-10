@@ -9,7 +9,8 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
-#[Title("Expense - ExpenseApp")]
+
+#[Title("Expense Form")]
 class ExpenseForm extends Component
 {
     public $expenseId;

@@ -10,7 +10,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 
-#[Title("Expenses - ExpenseApp")]
+#[Title("Expenses")]
 class ExpenseList extends Component
 {
     use WithPagination;

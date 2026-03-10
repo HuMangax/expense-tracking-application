@@ -10,6 +10,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 
+#[Title("Budget Form")]
 class BudgetForm extends Component
 {
     public $budgetId;

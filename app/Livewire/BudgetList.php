@@ -11,7 +11,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 
-#[Title("Budgets - ExpenseApp")]
+#[Title("Budgets")]
 class BudgetList extends Component
 {
     public $selectedMonth;

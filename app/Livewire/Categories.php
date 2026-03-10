@@ -7,7 +7,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use App\Models\Category;
 
-
+#[Title("Categorie")]
 class Categories extends Component
 {
     public $name = "";
