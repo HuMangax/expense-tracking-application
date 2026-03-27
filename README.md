@@ -49,3 +49,32 @@ In your original terminal window, run the Laravel server:
 php artisan serve
 ```
 Your application will now be running and accessible at `http://127.0.0.1:8000`.
+
+## 📸 App Screenshots
+
+## 📸 App Screenshots
+
+<table>
+  <tr>
+    <td align="center"><b>Dashboard</b></td>
+    <td align="center"><b>Budget Management</b></td>
+  </tr>
+  <tr>
+    <td><img src="images/dashboard.png" alt="Dashboard" width="100%"></td>
+    <td><img src="images/budgets.png" alt="Budgets" width="100%"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Custom Categories</b></td>
+    <td align="center"><b>Expense Tracking</b></td>
+  </tr>
+  <tr>
+    <td><img src="images/categories.png" alt="Categories" width="100%"></td>
+    <td><img src="images/expenses.png" alt="Expenses" width="100%"></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><b>Recurring Subscriptions</b></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><img src="images/recurring.png" alt="Recurring Expenses" width="50%"></td>
+  </tr>
+</table>
