@@ -60,7 +60,7 @@ Your application will now be running and accessible at `http://127.0.0.1:8000`.
     <td align="center"><b>Budget Management</b></td>
   </tr>
   <tr>
-    <td><img src="images/dashboard.png" alt="Dashboard" width="100%"></td>
+    <td><img src="images/dashboard2.png" alt="Dashboard" width="100%"></td>
     <td><img src="images/budgets.png" alt="Budgets" width="100%"></td>
   </tr>
   <tr>
