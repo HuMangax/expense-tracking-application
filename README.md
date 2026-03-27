@@ -30,3 +30,22 @@ This project utilizes the **TALL** Stack along with external APIs for its core f
 * **AI Integration:** Google Gemini PHP Laravel Official Package 
 * **Local Server Environment:** XAMPP (Apache/MySQL) or Laravel Herd/Valet
 
+### Start the Development Server
+
+To run the application locally, you will need to start your database, frontend assets, and backend server:
+
+**A. Start XAMPP Database**
+Open your XAMPP Control Panel and start both the **Apache** and **MySQL** modules.
+
+**B. Start the Vite Development Server**
+Open a new terminal window or tab in your project directory and run:
+```bash
+npm run dev
+```
+
+**C. Start the Laravel Backend**
+In your original terminal window, run the Laravel server:
+```bash
+php artisan serve
+```
+Your application will now be running and accessible at `http://127.0.0.1:8000`.
