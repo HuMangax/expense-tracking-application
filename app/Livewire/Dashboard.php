@@ -43,9 +43,9 @@ class Dashboard extends Component
         $budget = Budget::where('user_id', $userId)
             ->where('month', $this->selectedMonth)
             ->where('year', $this->selectedYear)
-            ->first();
+            ->sum('amount');
 
-        $this->monthlyBudget = $budget ? $budget->amount : 0;
+        $this->monthlyBudget = $budget ? $budget : 0;
 
         // percentage used
         $this->percentageUsed = $this->monthlyBudget > 0
