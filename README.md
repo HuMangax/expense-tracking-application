@@ -2,6 +2,8 @@
 
 A modern, full-stack expense tracking application built with the TALL stack (Tailwind CSS, Alpine.js, Laravel, Livewire) and integrated with Google Gemini AI for smart budget recommendations. This application helps users manage their finances, track recurring expenses, and visualize their spending patterns with real-time updates.
 
+https://github.com/HuMangax/expense-tracking-application
+
 *Developed based on the tutorial by [code with SJM](https://www.youtube.com/watch?v=KOHBYzDoGXU).*
 
 ---
@@ -49,8 +51,6 @@ In your original terminal window, run the Laravel server:
 php artisan serve
 ```
 Your application will now be running and accessible at `http://127.0.0.1:8000`.
-
-## 📸 App Screenshots
 
 ## 📸 App Screenshots
 
