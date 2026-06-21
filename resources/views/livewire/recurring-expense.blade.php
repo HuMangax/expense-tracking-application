@@ -1,10 +1,10 @@
-<div class="min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
-    <div class="bg-gradient-to-r from-blue-600 to-cyan-600 shadow-lg">
+<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
+    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold text-white">Recurring Expenses</h1>
-                    <p class="text-blue-100 mt-1">Manage your subscriptions and recurring bills</p>
+                    <p class="text-indigo-100 mt-1">Manage your subscriptions and recurring bills</p>
                 </div>
                 <a href="/expenses/create" class="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg font-semibold transition backdrop-blur-sm flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -30,21 +30,21 @@
         @endif
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-blue-500 transition-all">
+            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-indigo-500 transition-all">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-1 font-medium">Active Recurring</p>
                         <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $recurringExpenses->count() }}</p>
                     </div>
-                    <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                        <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
+                        <svg class="w-8 h-8 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-purple-500 transition-all">
+            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-violet-500 transition-all">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-1 font-medium">Monthly Total</p>
@@ -52,15 +52,15 @@
                             ${{ number_format($recurringExpenses->where('recurring_frequency', 'monthly')->sum('amount'), 2) }}
                         </p>
                     </div>
-                    <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                        <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-3 bg-violet-100 dark:bg-violet-900/30 rounded-lg">
+                        <svg class="w-8 h-8 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-emerald-500 transition-all">
+            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-fuchsia-500 transition-all">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-1 font-medium">Generated This Month</p>
@@ -68,8 +68,8 @@
                             {{ $recurringExpenses->sum(fn($e) => $e->childExpenses()->whereMonth('date', now()->month)->whereYear('date', now()->year)->count()) }}
                         </p>
                     </div>
-                    <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
-                        <svg class="w-8 h-8 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-3 bg-fuchsia-100 dark:bg-fuchsia-900/30 rounded-lg">
+                        <svg class="w-8 h-8 text-fuchsia-600 dark:text-fuchsia-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                         </svg>
                     </div>
@@ -117,7 +117,7 @@
 
                             <div class="flex items-center justify-between">
                                 <span class="text-gray-500 dark:text-gray-400 text-sm">Frequency</span>
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300">
                                     {{ ucfirst($expense->recurring_frequency) }}
                                 </span>
                             </div>
@@ -138,7 +138,7 @@
                             <div class="pt-2 border-t border-gray-100 dark:border-neutral-700">
                                 <div class="flex items-center justify-between text-sm">
                                     <span class="text-gray-500 dark:text-gray-400">Total Generated</span>
-                                    <span class="font-bold text-purple-600 dark:text-purple-400">
+                                    <span class="font-bold text-violet-600 dark:text-violet-400">
                                         {{ $expense->childExpenses->count() }} expenses
                                     </span>
                                 </div>
@@ -150,15 +150,15 @@
         @else
             <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-12 text-center transition-all">
                 <div class="flex justify-center mb-4">
-                    <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-full">
-                        <svg class="w-16 h-16 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-full">
+                        <svg class="w-16 h-16 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
                     </div>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">No Recurring Expenses Yet</h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-6">Set up recurring expenses like subscriptions or rent to track them automatically.</p>
-                <a href="/expenses/create" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+                <a href="/expenses/create" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
                     New Recurring Expense
                 </a>
             </div>

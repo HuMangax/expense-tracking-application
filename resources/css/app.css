@@ -23,16 +23,23 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
+    /* Brand: indigo → violet */
+    --color-accent: var(--color-indigo-600);
+    --color-accent-content: var(--color-indigo-600);
     --color-accent-foreground: var(--color-white);
+
+    --color-brand-from: var(--color-indigo-600);
+    --color-brand-to: var(--color-violet-600);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
+        --color-accent: var(--color-indigo-500);
+        --color-accent-content: var(--color-indigo-400);
+        --color-accent-foreground: var(--color-white);
+
+        --color-brand-from: var(--color-indigo-500);
+        --color-brand-to: var(--color-violet-500);
     }
 }
 
@@ -64,3 +71,81 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+/* ------------------------------------------------------------------ */
+/*  Design system — indigo → violet                                    */
+/* ------------------------------------------------------------------ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Slim, on-brand scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-zinc-300) transparent;
+}
+.dark * {
+    scrollbar-color: var(--color-zinc-700) transparent;
+}
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: var(--color-zinc-300);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+.dark *::-webkit-scrollbar-thumb {
+    background-color: var(--color-zinc-700);
+}
+*::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-indigo-400);
+}
+
+::selection {
+    background-color: color-mix(in oklab, var(--color-indigo-500) 30%, transparent);
+}
+
+/* Brand gradient helpers */
+.brand-gradient {
+    background-image: linear-gradient(135deg, var(--color-brand-from), var(--color-brand-to));
+}
+.brand-text {
+    background-image: linear-gradient(135deg, var(--color-brand-from), var(--color-brand-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Lift-on-hover for cards & tiles */
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    will-change: transform;
+}
+.hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px -16px color-mix(in oklab, var(--color-indigo-500) 45%, transparent);
+}
+
+/* Subtle entrance animation for page content */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-fade-in-up {
+    animation: fade-in-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Soft ring used on focusable tiles */
+.ring-brand {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-indigo-500) 35%, transparent);
+}

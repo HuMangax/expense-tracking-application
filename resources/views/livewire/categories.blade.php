@@ -1,9 +1,9 @@
-<div class="min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
-    <div class="bg-gradient-to-r from-green-600 to-emerald-600 shadow-lg">
+<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
+    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div>
                 <h1 class="text-3xl font-bold text-white">Categories</h1>
-                <p class="text-green-100 mt-1">Organize your expenses with custom categories</p>
+                <p class="text-indigo-100 mt-1">Organize your expenses with custom categories</p>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
                                 </button>
                             @endif
                             <button type="submit"
-                                class="flex-1 px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg transition">
+                                class="flex-1 px-4 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-lg font-semibold hover:shadow-lg transition">
                                 {{ $isEditing ? 'Update' : 'Create' }}
                             </button>
                         </div>

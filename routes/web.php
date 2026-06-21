@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', function () {
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('login');
+})->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', App\Livewire\Dashboard::class)
@@ -17,6 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //expenses
     Route::get('expenses', App\Livewire\ExpenseList::class)->name('expenses.index');
     Route::get('/expenses/create', App\Livewire\ExpenseForm::class)->name('expenses.create');
+    Route::get('/expenses/bulk', App\Livewire\BulkExpenseForm::class)->name('expenses.bulk');
+    Route::get('/expenses/import', App\Livewire\ImportExpenses::class)->name('expenses.import');
     Route::get('expenses/{expenseId}/edit', App\Livewire\ExpenseForm::class)->name('expenses.edit');
     Route::get('recurring-expenses', App\Livewire\RecurringExpense::class)->name('recurring-expenses.index');
 });

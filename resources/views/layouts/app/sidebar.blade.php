@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     @include('partials.head')
@@ -37,6 +37,19 @@
         <flux:spacer />
 
         <flux:sidebar.nav>
+            <button
+                x-data
+                type="button"
+                x-on:click="$flux.appearance = document.documentElement.classList.contains('dark') ? 'light' : 'dark'"
+                title="{{ __('Toggle theme') }}"
+                class="group flex w-full cursor-pointer items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium text-zinc-500 transition hover:bg-zinc-200/70 hover:text-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white"
+            >
+                <flux:icon name="moon" class="size-5 transition-transform duration-300 group-hover:-rotate-12 dark:hidden" />
+                <flux:icon name="sun" class="hidden size-5 transition-transform duration-300 group-hover:rotate-45 dark:block" />
+                <span class="dark:hidden">{{ __('Dark mode') }}</span>
+                <span class="hidden dark:inline">{{ __('Light mode') }}</span>
+            </button>
+
             <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit"
                 target="_blank">
                 {{ __('Repository') }}

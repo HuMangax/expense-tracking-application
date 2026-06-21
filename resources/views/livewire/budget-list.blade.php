@@ -1,5 +1,5 @@
-<div class="min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300 rounded">
-    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg transition-colors duration-300">
+<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300 rounded">
+    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex items-center justify-between">
                 <div>
@@ -82,7 +82,7 @@
          <div class="flex items-center justify-between mb-6">
             <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Category Budgets</h3>
             <a href="/budgets/create"
-                class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition flex items-center gap-2">
+                class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
@@ -226,7 +226,7 @@
                 <p class="text-gray-500 dark:text-gray-400 mb-6">Create budgets to track your spending and stay on target
                     with your financial goals.</p>
                 <a href="/budgets/create"
-                    class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+                    class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -236,16 +236,16 @@
         @endif
 
         @if($budgets->count() > 0)
-            <div class="mt-8 bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800/30 rounded-xl p-6 transition-colors duration-300">
+            <div class="mt-8 bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-200 dark:border-indigo-800/30 rounded-xl p-6 transition-colors duration-300">
                 <div class="flex items-start gap-3">
-                    <svg class="w-6 h-6 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
                             d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                             clip-rule="evenodd" />
                     </svg>
                     <div>
-                        <h4 class="font-semibold text-blue-900 dark:text-blue-300 mb-2">💡 Budget Tips</h4>
-                        <ul class="text-sm text-blue-800 dark:text-blue-400 space-y-1">
+                        <h4 class="font-semibold text-indigo-900 dark:text-indigo-300 mb-2">💡 Budget Tips</h4>
+                        <ul class="text-sm text-indigo-800 dark:text-indigo-400 space-y-1">
                             <li>• Set realistic budgets based on your historical spending patterns</li>
                             <li>• Create category-specific budgets for better control</li>
                             <li>• Review and adjust your budgets monthly</li>

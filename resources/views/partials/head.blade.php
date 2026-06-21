@@ -13,4 +13,12 @@
 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+<script>
+    // Default new visitors to dark mode; Flux reads this and applies it before paint.
+    if (! window.localStorage.getItem('flux.appearance')) {
+        window.localStorage.setItem('flux.appearance', 'dark');
+    }
+</script>
+
 @fluxAppearance

@@ -1,6 +1,6 @@
 # 💰 Smart Expense Tracking App
 
-A modern, full-stack expense tracking application built with the TALL stack (Tailwind CSS, Alpine.js, Laravel, Livewire) and integrated with Google Gemini AI for smart budget recommendations. This application helps users manage their finances, track recurring expenses, and visualize their spending patterns with real-time updates.
+A modern, full-stack expense tracking application built with the TALL stack (Tailwind CSS, Alpine.js, Laravel, Livewire) and integrated with Google Gemini AI for smart budget recommendations. Track one-time and recurring expenses, set budgets, import bank statements, and visualize your spending — all through a slick, real-time interface.
 
 https://github.com/HuMangax/expense-tracking-application
 
@@ -10,47 +10,86 @@ https://github.com/HuMangax/expense-tracking-application
 
 ## ✨ Features
 
-* **📊 Interactive Dashboard:** Visualize your spending patterns with beautiful charts, line graphs, and real-time statistics without needing to refresh the page.
-* **🤖 AI Smart Recommendations:** Integrated with Google Gemini AI. The AI analyzes your previous 3 months of spending history for a specific category and suggests realistic budget amounts (Conservative, Recommended, and Comfortable) along with reasoning.
-* **🔁 Recurring Expenses:** Automate your fixed expenses (e.g., Netflix subscriptions, rent) with customizable frequencies (daily, weekly, monthly, yearly).
-* **🗂️ Custom Categories:** Categorize budgets and expenses. Users can create custom categories with tailored colors and icons.
-* **🎯 Budget Management:** Create overall and category-specific budgets. Visual progress bars track usage and remaining funds.
-* **🔔 Email Notifications:** Receive automated email alerts when your spending exceeds your allocated budget.
-* **📱 Fully Responsive & Dark Mode:** Accessible on mobile, tablet, and desktop devices. Features built-in toggles for Light and Dark modes.
-* **🔐 Advanced Security:** Built-in authentication featuring profile management, password updates, and Two-Factor Authentication (2FA).
+* **📊 Interactive Dashboard:** Visualize your spending with charts and real-time statistics. Move between months and the spending trend and category breakdown update live — no page refresh.
+* **🤖 AI Smart Recommendations:** Integrated with Google Gemini AI. The AI analyzes your previous 3 months of spending for a category and suggests realistic budget amounts (Conservative, Recommended, and Comfortable) with reasoning.
+* **🧾 Bulk Expense Entry:** Add many one-time expenses at once on a single screen — a repeatable row grid with a live running total, saved together in one action.
+* **📥 CSV Statement Import:** Import a CSV statement exported from your bank. A mapping wizard auto-detects the Date / Description / Amount columns (or separate debit / credit columns), previews the result, skips income and duplicate rows, then imports in one click. **No bank credentials are ever requested — you only upload the file you downloaded.**
+* **🔁 Recurring Expenses:** Automate fixed expenses (e.g. subscriptions, rent) with customizable frequencies (daily, weekly, monthly, yearly).
+* **🗂️ Custom Categories:** Organize budgets and expenses with custom, color-coded categories.
+* **🎯 Budget Management:** Create overall and category-specific budgets, with visual progress bars tracking usage and remaining funds.
+* **🔔 Email Notifications:** Automated alerts when spending exceeds your allocated budget.
+* **🎨 Slick UI · Light & Dark:** A cohesive indigo → violet design with smooth, interactive micro-animations and a Light/Dark toggle (defaults to dark, remembers your choice). Fully responsive across mobile, tablet, and desktop.
+* **🔐 Advanced Security:** Authentication with profile management, password updates, and Two-Factor Authentication (2FA), powered by Laravel Fortify.
 
 ---
 
 ## 🛠️ Tech Stack
 
-This project utilizes the **TALL** Stack along with external APIs for its core functionality:
-* **Framework:** Laravel
-* **Frontend Reactive Components:** Livewire & Flux UI
-* **JavaScript Framework:** Alpine.js
-* **Styling:** Tailwind CSS
-* **Database:** MySQL
-* **AI Integration:** Google Gemini PHP Laravel Official Package 
-* **Local Server Environment:** XAMPP (Apache/MySQL) or Laravel Herd/Valet
+This project uses the **TALL** stack with a few extras:
 
-### Start the Development Server
+* **Framework:** Laravel 12 (PHP 8.2+)
+* **Reactive Components:** Livewire 4 & Flux UI
+* **JavaScript:** Alpine.js
+* **Styling:** Tailwind CSS 4 (bundled with Vite)
+* **Charts:** Chart.js
+* **Database:** SQLite by default (MySQL / PostgreSQL also supported via `.env`)
+* **Authentication:** Laravel Fortify (incl. 2FA)
+* **AI Integration:** Google Gemini (`google-gemini-php/laravel`)
 
-To run the application locally, you will need to start your database, frontend assets, and backend server:
+---
 
-**A. Start XAMPP Database**
-Open your XAMPP Control Panel and start both the **Apache** and **MySQL** modules.
+## 🚀 Getting Started
 
-**B. Start the Vite Development Server**
-Open a new terminal window or tab in your project directory and run:
+### Prerequisites
+* PHP 8.2+
+* Composer
+* Node.js & npm
+
+### Installation
+
 ```bash
+# 1. Clone the repository
+git clone https://github.com/HuMangax/expense-tracking-application.git
+cd expense-tracking-application
+
+# 2. Install dependencies
+composer install
+npm install
+
+# 3. Set up your environment
+cp .env.example .env
+php artisan key:generate
+
+# 4. Create the SQLite database and run migrations
+touch database/database.sqlite
+php artisan migrate
+```
+
+**(Optional) Enable AI budget recommendations** by adding your Google Gemini key to `.env`:
+
+```env
+GEMINI_API_KEY=your-key-here
+```
+
+### Running the Development Server
+
+The app needs the Vite asset server and the Laravel server running together. Open two terminals in the project directory:
+
+```bash
+# Terminal 1 — frontend assets (Vite + hot reload)
 npm run dev
 ```
 
-**C. Start the Laravel Backend**
-In your original terminal window, run the Laravel server:
 ```bash
+# Terminal 2 — Laravel backend
 php artisan serve
 ```
-Your application will now be running and accessible at `http://127.0.0.1:8000`.
+
+Visit **`http://127.0.0.1:8000`**, register an account, and you'll land straight on the dashboard.
+
+> **Recurring expenses** are generated by a scheduled command (`expenses:generate-recurring-expense`). For it to run automatically, keep Laravel's scheduler running with `php artisan schedule:work` locally, or add a cron entry calling `php artisan schedule:run` in production.
+
+---
 
 ## 📸 App Screenshots
 

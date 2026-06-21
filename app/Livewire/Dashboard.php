@@ -95,7 +95,15 @@ class Dashboard extends Component
             ->recurring()
             ->count();
 
-
+        // Push fresh chart data to the browser so the charts re-render on month change.
+        $this->dispatch(
+            'dashboard-updated',
+            trendLabels: $this->monthlyComparison->pluck('month')->all(),
+            trendData: $this->monthlyComparison->pluck('total')->all(),
+            catLabels: $this->expenseByCategory->pluck('name')->all(),
+            catData: $this->expenseByCategory->pluck('total')->all(),
+            catColors: $this->expenseByCategory->pluck('color')->all(),
+        );
     }
 
     public function updatedSelectedMonth()
