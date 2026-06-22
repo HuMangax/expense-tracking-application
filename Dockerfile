@@ -24,7 +24,7 @@ RUN npm ci && npm run build
 # ----------------------------------------------------------------------------
 # Stage 3 — Runtime (FrankenPHP serves Laravel's public/ directory)
 # ----------------------------------------------------------------------------
-FROM dunglas/frankenphp:1-php8.3
+FROM dunglas/frankenphp:1-php8.4
 RUN install-php-extensions pdo_pgsql intl zip bcmath opcache
 
 WORKDIR /app
