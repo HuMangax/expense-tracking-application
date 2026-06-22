@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Render (and most PaaS) terminate TLS at the edge and forward plain HTTP,
+        // so trust the proxy's X-Forwarded-* headers. Without this, Laravel builds
+        // http:// asset/Livewire URLs that browsers block as mixed content.
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
