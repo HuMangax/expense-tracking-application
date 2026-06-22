@@ -114,6 +114,7 @@ class Expense extends Model
         return match($this->recurring_frequency) {
             'daily' => $baseDate->copy()->addDay(),
             'weekly' => $baseDate->copy()->addWeek(),
+            'biweekly' => $baseDate->copy()->addWeeks(2),
             'monthly' => $baseDate->copy()->addMonth(),
             'yearly' => $baseDate->copy()->addYear(),
             default => null,

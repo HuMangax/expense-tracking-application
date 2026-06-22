@@ -39,7 +39,7 @@ class ExpenseForm extends Component
         ];
 
         if ($this->type === 'recurring') {
-            $rules['recurring_frequency'] = 'required|in:daily,weekly,monthly,yearly';
+            $rules['recurring_frequency'] = 'required|in:daily,weekly,biweekly,monthly,yearly';
             $rules['recurring_start_date'] = 'required|date';
             $rules['recurring_end_date'] = 'nullable|date|after:recurring_start_date';
         }

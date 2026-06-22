@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
@@ -8,6 +9,18 @@ Route::get('/', function () {
         ? redirect()->route('dashboard')
         : redirect()->route('login');
 })->name('home');
+
+// Generates due recurring expenses. Meant to be hit once a day by an external
+// scheduler (e.g. cron-job.org) on hosts without a real cron. Guarded by a
+// secret token; returns 404 unless CRON_SECRET is configured. See DEPLOY.md.
+Route::get('/_cron/recurring/{token}', function (string $token) {
+    $secret = (string) config('app.cron_secret');
+    abort_unless($secret !== '' && hash_equals($secret, $token), 404);
+
+    Artisan::call('expenses:generate-recurring-expense');
+
+    return response('Recurring expenses generated.');
+})->name('cron.recurring');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', App\Livewire\Dashboard::class)

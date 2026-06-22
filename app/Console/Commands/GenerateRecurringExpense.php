@@ -64,6 +64,7 @@ class GenerateRecurringExpense extends Command
             $nextDate = match($recurringExpense->recurring_frequency) {
                 'daily' => $nextDate->copy()->addDay(),
                 'weekly' => $nextDate->copy()->addWeek(),
+                'biweekly' => $nextDate->copy()->addWeeks(2),
                 'monthly' => $nextDate->copy()->addMonth(),
                 'yearly' => $nextDate->copy()->addYear(),
                 default => null,

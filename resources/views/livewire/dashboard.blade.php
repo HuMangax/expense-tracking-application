@@ -254,9 +254,29 @@
     @endphp
     <script type="application/json" id="dashboardChartData">{!! json_encode($dashboardChartData) !!}</script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
         (function () {
+            // Resolve once Chart.js is available, loading it on demand. This avoids a
+            // race on SPA (wire:navigate) loads where the chart code can run before
+            // the library has finished downloading (which left the charts blank).
+            function ensureChart() {
+                return new Promise(function (resolve) {
+                    if (window.Chart) return resolve();
+                    var s = document.getElementById('chartjs-lib');
+                    if (!s) {
+                        s = document.createElement('script');
+                        s.id = 'chartjs-lib';
+                        s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+                        document.head.appendChild(s);
+                    }
+                    var tries = 0;
+                    var poll = setInterval(function () {
+                        if (window.Chart) { clearInterval(poll); resolve(); }
+                        else if (++tries > 250) { clearInterval(poll); } // ~10s safety cap
+                    }, 40);
+                });
+            }
+
             function buildCharts(d) {
                 if (typeof Chart === 'undefined') return;
                 d = d || {};
@@ -323,17 +343,39 @@
                 try { return el ? JSON.parse(el.textContent) : {}; } catch (e) { return {}; }
             }
 
-            // Render on first load and on SPA navigation back to the dashboard.
-            document.addEventListener('livewire:navigated', function () { buildCharts(initialData()); });
+            // Wait for the library, then draw.
+            function render(d) {
+                var data = d || initialData();
+                ensureChart().then(function () { buildCharts(data); });
+            }
+            window.renderDashboardCharts = render;
 
-            // Re-render with fresh data when the selected month changes.
-            document.addEventListener('livewire:init', function () {
-                if (window.__dashChartsBound) return;
-                window.__dashChartsBound = true;
-                Livewire.on('dashboard-updated', function (e) {
-                    buildCharts(Array.isArray(e) ? (e[0] || {}) : e);
-                });
-            });
+            // Bind the global listeners once (this script may re-run on navigation).
+            if (!window.__dashboardChartsBound) {
+                window.__dashboardChartsBound = true;
+
+                // First load + every SPA navigation back to the dashboard.
+                document.addEventListener('livewire:navigated', function () { render(); });
+
+                // Re-render with fresh data when the selected month changes. Bind on
+                // livewire:init, or immediately if Livewire is already running (e.g.
+                // the user navigated here from another page).
+                var bindMonth = function () {
+                    if (window.__dashMonthBound || !window.Livewire) return;
+                    window.__dashMonthBound = true;
+                    window.Livewire.on('dashboard-updated', function (e) {
+                        render(Array.isArray(e) ? (e[0] || {}) : e);
+                    });
+                };
+                document.addEventListener('livewire:init', bindMonth);
+                bindMonth();
+            }
+
+            // Draw now for the current page, covering the case where livewire:navigated
+            // already fired before this component's script executed.
+            if (document.getElementById('monthlyTrendChart')) {
+                render();
+            }
         })();
     </script>
 </div>

@@ -1,0 +1,14 @@
+{
+	# Render terminates TLS at its edge, so we serve plain HTTP internally.
+	auto_https off
+	admin off
+	frankenphp
+	order php_server before file_server
+}
+
+# Bind to the port Render provides (falls back to 8080 locally).
+:{$PORT:8080} {
+	root * /app/public
+	encode zstd br gzip
+	php_server
+}

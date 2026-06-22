@@ -1,0 +1,38 @@
+# Render Blueprint — deploy with "New + > Blueprint" pointed at this repo.
+# Secrets (sync: false) must be filled in via the Render dashboard.
+services:
+  - type: web
+    name: expense-tracker
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /login
+    envVars:
+      - key: APP_NAME
+        value: Expense Tracker
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY          # paste output of: php artisan key:generate --show
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL           # Neon connection string (postgresql://...sslmode=require)
+        sync: false
+      - key: DB_SSLMODE
+        value: require
+      - key: SESSION_DRIVER
+        value: database
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: CACHE_STORE
+        value: database
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: MAIL_MAILER
+        value: log
+      - key: GEMINI_API_KEY   # optional — enables AI budget suggestions
+        sync: false
+      - key: CRON_SECRET      # optional — enables the recurring-expense cron endpoint
+        sync: false

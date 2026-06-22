@@ -107,7 +107,7 @@
                 <table class="w-full border-collapse">
                     <thead class="bg-gray-50 dark:bg-neutral-700 border-b border-gray-200 dark:border-neutral-600">
                         <tr>
-                            <th wire:click="sortBy('date')"
+                            <th wire:click="sortByField('date')"
                                 class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-600 transition-colors">
                                 <div class="flex items-center gap-2">
                                     Date
@@ -119,10 +119,19 @@
                                     @endif
                                 </div>
                             </th>
-                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                Category
+                            <th wire:click="sortByField('category')"
+                                class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-600 transition-colors">
+                                <div class="flex items-center gap-2">
+                                    Category
+                                    @if($sortBy === 'category')
+                                        <svg class="w-4 h-4 {{ $sortDirection === 'asc' ? 'rotate-180' : '' }}" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    @endif
+                                </div>
                             </th>
-                            <th wire:click="sortBy('title')"
+                            <th wire:click="sortByField('title')"
                                 class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-600 transition-colors">
                                 <div class="flex items-center gap-2">
                                     Title
@@ -137,7 +146,7 @@
                             <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                 Description
                             </th>
-                            <th wire:click="sortBy('amount')"
+                            <th wire:click="sortByField('amount')"
                                 class="px-6 py-4 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-600 transition-colors">
                                 <div class="flex items-center justify-end gap-2">
                                     Amount

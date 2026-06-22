@@ -1,0 +1,37 @@
+# Version control / CI
+.git
+.github
+.gitignore
+.gitattributes
+
+# Local env & secrets (NEVER ship these — Render injects env vars)
+.env
+.env.*
+!.env.example
+
+# Dependencies / build output (rebuilt inside the image)
+/node_modules
+/vendor
+/public/build
+/public/hot
+
+# Local database & caches
+/database/*.sqlite
+/storage/logs/*.log
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/bootstrap/cache/*.php
+
+# Dev-only files
+/tests
+.phpunit.result.cache
+phpunit.xml
+/.claude
+/.idea
+/.vscode
+
+# Docs & heavy assets not needed at runtime
+*.md
+README.pdf
+/images

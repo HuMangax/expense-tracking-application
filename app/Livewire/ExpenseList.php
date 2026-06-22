@@ -35,13 +35,21 @@ class ExpenseList extends Component
     }
 
      //sorting
-    public function sortBy($field){
+    public array $sortableFields = ['date', 'title', 'amount', 'category'];
+
+    public function sortByField($field){
+        if (! in_array($field, $this->sortableFields, true)) {
+            return;
+        }
+
         if ($this->sortBy === $field) {
             $this->sortDirection = $this->sortDirection == "asc"?"desc":"asc";
         }else{
             $this->sortBy = $field;
             $this->sortDirection = 'asc';
         }
+
+        $this->resetPage();
     }
 
     //deleting the expense
@@ -84,8 +92,21 @@ class ExpenseList extends Component
             $query->whereDate('date', '<=', $this->endDate);
         }
 
-        return $query->orderBy($this->sortBy, $this->sortDirection)->paginate(10);
+        $direction = $this->sortDirection === 'asc' ? 'asc' : 'desc';
 
+        if ($this->sortBy === 'category') {
+            // category name lives on a related table — order by a correlated
+            // subquery so we don't have to join (which collides with user_id)
+            $query->orderBy(
+                Category::select('name')->whereColumn('categories.id', 'expenses.category_id'),
+                $direction
+            );
+        } else {
+            $column = in_array($this->sortBy, ['date', 'title', 'amount'], true) ? $this->sortBy : 'date';
+            $query->orderBy($column, $direction);
+        }
+
+        return $query->paginate(10);
     }
 
     #[Computed]

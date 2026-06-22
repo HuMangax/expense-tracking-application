@@ -123,4 +123,17 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cron Endpoint Secret
+    |--------------------------------------------------------------------------
+    |
+    | Secret token guarding the public /_cron route that triggers the
+    | recurring-expense generator on hosts without a real scheduler (e.g.
+    | Render's free tier). Leave empty to disable the endpoint entirely.
+    |
+    */
+
+    'cron_secret' => env('CRON_SECRET'),
+
 ];

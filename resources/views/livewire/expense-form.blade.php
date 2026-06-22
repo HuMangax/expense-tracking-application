@@ -164,6 +164,7 @@
                                     class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('recurring_frequency') border-red-500 @enderror">
                                     <option value="daily">Daily</option>
                                     <option value="weekly">Weekly</option>
+                                    <option value="biweekly">Biweekly</option>
                                     <option value="monthly">Monthly</option>
                                     <option value="yearly">Yearly</option>
                                 </select>
