@@ -27,6 +27,14 @@ RUN npm ci && npm run build
 FROM dunglas/frankenphp:1-php8.4
 RUN install-php-extensions pdo_pgsql intl zip bcmath opcache
 
+# Render's runtime drops CAP_NET_BIND_SERVICE from the bounding set, which makes
+# execve() of the capability-carrying frankenphp binary fail with EPERM
+# ("Operation not permitted"). We bind to a high port ($PORT), so strip the cap.
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends libcap2-bin \
+        && (setcap -r /usr/local/bin/frankenphp || true) \
+        && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Composer is needed to regenerate the optimized autoloader with the full app.
