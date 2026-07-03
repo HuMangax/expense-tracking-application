@@ -1,13 +1,13 @@
-<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
-    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg transition-colors duration-300">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div>
+    <div class="mx-auto max-w-5xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div>
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-white">Import Expenses</h1>
-                    <p class="text-indigo-100 mt-1">Upload a CSV statement from your bank and map the columns</p>
+                    <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Import Expenses</h1>
+                    <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Upload a CSV statement from your bank and map the columns</p>
                 </div>
                 <a href="{{ route('expenses.index') }}" wire:navigate
-                    class="p-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition backdrop-blur-sm" aria-label="Cancel">
+                    class="inline-flex items-center justify-center rounded-lg border border-zinc-200 bg-white p-2 text-zinc-600 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800" aria-label="Cancel">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -22,8 +22,8 @@
         @if($step === 'upload')
             <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-8 transition-colors duration-300">
                 <label for="csv-file"
-                    class="flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-gray-300 dark:border-neutral-600 px-6 py-12 text-center cursor-pointer hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-indigo-50/40 dark:hover:bg-indigo-900/10 transition">
-                    <div class="rounded-full bg-indigo-100 dark:bg-indigo-500/15 p-4 text-indigo-600 dark:text-indigo-400">
+                    class="flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-gray-300 dark:border-neutral-600 px-6 py-12 text-center cursor-pointer hover:border-teal-400 dark:hover:border-teal-500 hover:bg-teal-50/40 dark:hover:bg-teal-900/10 transition">
+                    <div class="rounded-full bg-teal-100 dark:bg-teal-500/15 p-4 text-teal-600 dark:text-teal-400">
                         <svg wire:loading.remove wire:target="file" class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 16a4 4 0 01-.88-7.9 5 5 0 019.9-1A4.5 4.5 0 1117 16H7zm5-7v6m0-6l-2.5 2.5M12 9l2.5 2.5" />
                         </svg>
@@ -67,7 +67,7 @@
                         {{-- Date column --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date column <span class="text-red-500">*</span></label>
-                            <select wire:model.live="dateColumn" @class([$baseSelect = 'w-full px-4 py-2.5 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent', 'border-red-500' => $errors->has('dateColumn'), 'border-gray-300 dark:border-neutral-600' => ! $errors->has('dateColumn')])>
+                            <select wire:model.live="dateColumn" @class([$baseSelect = 'w-full px-4 py-2.5 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent', 'border-red-500' => $errors->has('dateColumn'), 'border-gray-300 dark:border-neutral-600' => ! $errors->has('dateColumn')])>
                                 <option value="">— Select —</option>
                                 @foreach($this->columnOptions as $i => $label)
                                     <option value="{{ $i }}">{{ $label }}</option>
@@ -79,7 +79,7 @@
                         {{-- Description column --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description column</label>
-                            <select wire:model.live="descriptionColumn" class="w-full px-4 py-2.5 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <select wire:model.live="descriptionColumn" class="w-full px-4 py-2.5 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent">
                                 <option value="">— None (use "Imported expense") —</option>
                                 @foreach($this->columnOptions as $i => $label)
                                     <option value="{{ $i }}">{{ $label }}</option>
@@ -92,11 +92,11 @@
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Amount columns</label>
                             <div class="flex flex-wrap gap-4 mb-3">
                                 <label class="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                                    <input type="radio" wire:model.live="amountMode" value="single" class="text-indigo-600 focus:ring-indigo-500">
+                                    <input type="radio" wire:model.live="amountMode" value="single" class="text-teal-600 focus:ring-teal-500">
                                     One signed amount column
                                 </label>
                                 <label class="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                                    <input type="radio" wire:model.live="amountMode" value="separate" class="text-indigo-600 focus:ring-indigo-500">
+                                    <input type="radio" wire:model.live="amountMode" value="separate" class="text-teal-600 focus:ring-teal-500">
                                     Separate debit / credit columns
                                 </label>
                             </div>
@@ -104,7 +104,7 @@
                             @if($amountMode === 'single')
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div>
-                                        <select wire:model.live="amountColumn" @class(['w-full px-4 py-2.5 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent', 'border-red-500' => $errors->has('amountColumn'), 'border-gray-300 dark:border-neutral-600' => ! $errors->has('amountColumn')])>
+                                        <select wire:model.live="amountColumn" @class(['w-full px-4 py-2.5 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent', 'border-red-500' => $errors->has('amountColumn'), 'border-gray-300 dark:border-neutral-600' => ! $errors->has('amountColumn')])>
                                             <option value="">— Select amount column —</option>
                                             @foreach($this->columnOptions as $i => $label)
                                                 <option value="{{ $i }}">{{ $label }}</option>
@@ -113,13 +113,13 @@
                                         @error('amountColumn') <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
                                     </div>
                                     <label class="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                                        <input type="checkbox" wire:model.live="onlyOutflows" class="rounded text-indigo-600 focus:ring-indigo-500">
+                                        <input type="checkbox" wire:model.live="onlyOutflows" class="rounded text-teal-600 focus:ring-teal-500">
                                         Only import money out (negative amounts)
                                     </label>
                                 </div>
                             @else
                                 <div class="md:w-1/2">
-                                    <select wire:model.live="debitColumn" @class(['w-full px-4 py-2.5 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent', 'border-red-500' => $errors->has('debitColumn'), 'border-gray-300 dark:border-neutral-600' => ! $errors->has('debitColumn')])>
+                                    <select wire:model.live="debitColumn" @class(['w-full px-4 py-2.5 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent', 'border-red-500' => $errors->has('debitColumn'), 'border-gray-300 dark:border-neutral-600' => ! $errors->has('debitColumn')])>
                                         <option value="">— Select debit (spent) column —</option>
                                         @foreach($this->columnOptions as $i => $label)
                                             <option value="{{ $i }}">{{ $label }}</option>
@@ -134,7 +134,7 @@
                         {{-- Date format --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date format</label>
-                            <select wire:model.live="dateFormat" class="w-full px-4 py-2.5 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <select wire:model.live="dateFormat" class="w-full px-4 py-2.5 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent">
                                 @foreach($dateFormats as $value => $label)
                                     <option value="{{ $value }}">{{ $label }}</option>
                                 @endforeach
@@ -144,7 +144,7 @@
                         {{-- Fallback category --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category (optional)</label>
-                            <select wire:model.live="defaultCategoryId" class="w-full px-4 py-2.5 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <select wire:model.live="defaultCategoryId" class="w-full px-4 py-2.5 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent">
                                 <option value="">Uncategorized</option>
                                 @foreach($this->categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -162,15 +162,15 @@
 
                     <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-gray-100 dark:border-neutral-700 pt-4">
                         <label class="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                            <input type="checkbox" wire:model.live="autoCategorize" class="rounded text-indigo-600 focus:ring-indigo-500">
+                            <input type="checkbox" wire:model.live="autoCategorize" class="rounded text-teal-600 focus:ring-teal-500">
                             Auto-categorize from description
                         </label>
                         <label class="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                            <input type="checkbox" wire:model.live="hasHeaderRow" class="rounded text-indigo-600 focus:ring-indigo-500">
+                            <input type="checkbox" wire:model.live="hasHeaderRow" class="rounded text-teal-600 focus:ring-teal-500">
                             First row is a header
                         </label>
                         <label class="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                            <input type="checkbox" wire:model.live="skipDuplicates" class="rounded text-indigo-600 focus:ring-indigo-500">
+                            <input type="checkbox" wire:model.live="skipDuplicates" class="rounded text-teal-600 focus:ring-teal-500">
                             Skip duplicates already in my expenses
                         </label>
                     </div>
@@ -242,7 +242,7 @@
                         Start over
                     </button>
                     <button type="button" wire:click="import" wire:loading.attr="disabled" wire:target="import"
-                        class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                        class="px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
                         <svg wire:loading.remove wire:target="import" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 12V3m0 9l-3-3m3 3l3-3" />
                         </svg>

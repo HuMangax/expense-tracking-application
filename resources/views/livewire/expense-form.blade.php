@@ -1,14 +1,14 @@
-<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
-    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg transition-colors duration-300">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div>
+    <div class="mx-auto max-w-4xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div>
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-white">
+                    <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
                         {{ $isEdit ? 'Edit Expense' : 'Add New Expense' }}
                     </h1>
-                    <p class="text-indigo-100 mt-1">{{ $isEdit ? 'Update expense details' : 'Record a new expense' }}</p>
+                    <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{{ $isEdit ? 'Update expense details' : 'Record a new expense' }}</p>
                 </div>
-                <a href="/expenses" class="p-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition backdrop-blur-sm">
+                <a href="/expenses" wire:navigate class="inline-flex items-center justify-center rounded-lg border border-zinc-200 bg-white p-2 text-zinc-600 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />
@@ -35,7 +35,7 @@
                                 <span class="text-gray-500 dark:text-gray-400 text-lg">$</span>
                             </div>
                             <input type="number" id="amount" wire:model="amount" step="0.01" min="0" placeholder="0.00"
-                                class="w-full pl-8 pr-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400 @error('amount') border-red-500 @enderror">
+                                class="w-full pl-8 pr-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400 @error('amount') border-red-500 @enderror">
                         </div>
                         @error('amount')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -47,7 +47,7 @@
                             Date <span class="text-red-500">*</span>
                         </label>
                         <input type="date" id="date" wire:model="date"
-                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark] @error('date') border-red-500 @enderror">
+                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark] @error('date') border-red-500 @enderror">
                         @error('date')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
@@ -58,7 +58,7 @@
                             Title <span class="text-red-500">*</span>
                         </label>
                         <input type="text" id="title" wire:model="title" placeholder="e.g., Grocery Shopping"
-                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400 @error('title') border-red-500 @enderror">
+                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400 @error('title') border-red-500 @enderror">
                         @error('title')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
@@ -69,7 +69,7 @@
                             Category
                         </label>
                         <select wire:model="category_id" id="category_id"
-                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent">
                             <option value="">Select a category</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -77,7 +77,7 @@
                         </select>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                             Don't see your category? <a href="/categories"
-                                class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium transition">Create one</a>
+                                class="text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-medium transition">Create one</a>
                         </p>
                     </div>
 
@@ -87,7 +87,7 @@
                         </label>
                         <textarea wire:model="description" id="description" rows="3"
                             placeholder="Add any additional notes..."
-                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none placeholder-gray-400 dark:placeholder-gray-400"></textarea>
+                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent resize-none placeholder-gray-400 dark:placeholder-gray-400"></textarea>
                     </div>
                 </div>
             </div>
@@ -97,12 +97,12 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <label
-                        class="relative flex items-center p-4 border-2 rounded-lg cursor-pointer transition {{ $type === 'one-time' ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-gray-200 dark:border-neutral-700 hover:border-gray-300 dark:hover:border-neutral-600' }}">
+                        class="relative flex items-center p-4 border-2 rounded-lg cursor-pointer transition {{ $type === 'one-time' ? 'border-teal-500 bg-teal-50 dark:bg-teal-900/20' : 'border-gray-200 dark:border-neutral-700 hover:border-gray-300 dark:hover:border-neutral-600' }}">
                         <input type="radio" wire:model.live="type" value="one-time" class="sr-only">
                         <div class="flex-1">
                             <div class="flex items-center gap-3">
                                 <div
-                                    class="w-10 h-10 rounded-lg {{ $type === 'one-time' ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-neutral-600' }} flex items-center justify-center transition-colors">
+                                    class="w-10 h-10 rounded-lg {{ $type === 'one-time' ? 'bg-teal-600' : 'bg-gray-300 dark:bg-neutral-600' }} flex items-center justify-center transition-colors">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                         @if($type === 'one-time')
-                            <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400 absolute right-4" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-6 h-6 text-teal-600 dark:text-teal-400 absolute right-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                     clip-rule="evenodd" />
@@ -125,12 +125,12 @@
                     </label>
 
                     <label
-                        class="relative flex items-center p-4 border-2 rounded-lg cursor-pointer transition {{ $type === 'recurring' ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' : 'border-gray-200 dark:border-neutral-700 hover:border-gray-300 dark:hover:border-neutral-600' }}">
+                        class="relative flex items-center p-4 border-2 rounded-lg cursor-pointer transition {{ $type === 'recurring' ? 'border-teal-500 bg-teal-50 dark:bg-teal-900/20' : 'border-gray-200 dark:border-neutral-700 hover:border-gray-300 dark:hover:border-neutral-600' }}">
                         <input type="radio" wire:model.live="type" value="recurring" class="sr-only">
                         <div class="flex-1">
                             <div class="flex items-center gap-3">
                                 <div
-                                    class="w-10 h-10 rounded-lg {{ $type === 'recurring' ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-neutral-600' }} flex items-center justify-center transition-colors">
+                                    class="w-10 h-10 rounded-lg {{ $type === 'recurring' ? 'bg-teal-600' : 'bg-gray-300 dark:bg-neutral-600' }} flex items-center justify-center transition-colors">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -144,7 +144,7 @@
                             </div>
                         </div>
                         @if($type === 'recurring')
-                            <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400 absolute right-4" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-6 h-6 text-teal-600 dark:text-teal-400 absolute right-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                     clip-rule="evenodd" />
@@ -154,14 +154,14 @@
                 </div>
 
                 @if($type === 'recurring')
-                    <div class="space-y-4 p-4 bg-indigo-50 dark:bg-indigo-900/10 rounded-lg border border-indigo-100 dark:border-indigo-800/30">
+                    <div class="space-y-4 p-4 bg-teal-50 dark:bg-teal-900/10 rounded-lg border border-teal-100 dark:border-teal-800/30">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label for="recurring_frequency" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Frequency <span class="text-red-500">*</span>
                                 </label>
                                 <select wire:model="recurring_frequency" id="recurring_frequency"
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('recurring_frequency') border-red-500 @enderror">
+                                    class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent @error('recurring_frequency') border-red-500 @enderror">
                                     <option value="daily">Daily</option>
                                     <option value="weekly">Weekly</option>
                                     <option value="biweekly">Biweekly</option>
@@ -178,7 +178,7 @@
                                     Start Date <span class="text-red-500">*</span>
                                 </label>
                                 <input type="date" id="recurring_start_date" wire:model="recurring_start_date"
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark] @error('recurring_start_date') border-red-500 @enderror">
+                                    class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark] @error('recurring_start_date') border-red-500 @enderror">
                                 @error('recurring_start_date')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
@@ -189,14 +189,14 @@
                                     End Date <span class="text-gray-500 dark:text-gray-500">(Optional)</span>
                                 </label>
                                 <input type="date" id="recurring_end_date" wire:model="recurring_end_date"
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark] @error('recurring_end_date') border-red-500 @enderror">
+                                    class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark] @error('recurring_end_date') border-red-500 @enderror">
                                 @error('recurring_end_date')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-2 text-sm text-indigo-800 dark:text-indigo-300">
+                        <div class="flex items-start gap-2 text-sm text-teal-800 dark:text-teal-300">
                             <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                     d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
@@ -218,7 +218,7 @@
                     Cancel
                 </a>
                 <button type="submit"
-                    class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                    class="px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>

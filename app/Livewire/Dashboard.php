@@ -2,25 +2,33 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Budget;
 use App\Models\Expense;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class Dashboard extends Component
 {
     public $selectedMonth;
+
     public $selectedYear;
+
     public $totalSpent;
+
     public $monthlyBudget;
+
     public $percentageUsed;
+
     public $expenseByCategory;
+
     public $recentExpenses;
+
     public $monthlyComparison;
+
     public $topCategories;
+
     public $recurringExpenseCount;
 
     public function mount()
@@ -62,7 +70,6 @@ class Dashboard extends Component
             ->orderBy('total', 'desc')
             ->get();
 
-
         // recent expenses
         $this->recentExpenses = Expense::with('category')
             ->forUser($userId)
@@ -73,18 +80,25 @@ class Dashboard extends Component
             ->take(5)
             ->get();
 
-        //monthly comparison
+        // Monthly comparison — one windowed query bucketed in PHP, instead of six
+        // sequential SUM round-trips (each of which is costly when the DB is remote).
+        // Kept portable across sqlite (local/tests) and Postgres (prod).
+        $windowStart = Carbon::create($this->selectedYear, $this->selectedMonth, 1)->subMonths(5)->startOfMonth();
+        $windowEnd = Carbon::create($this->selectedYear, $this->selectedMonth, 1)->endOfMonth();
+
+        $monthlyTotals = Expense::forUser($userId)
+            ->whereBetween('date', [$windowStart->toDateString(), $windowEnd->toDateString()])
+            ->get(['amount', 'date'])
+            ->groupBy(fn ($expense) => $expense->date->format('Y-m'))
+            ->map(fn ($group) => $group->sum('amount'));
+
         $this->monthlyComparison = collect();
         for ($i = 5; $i >= 0; $i--) {
             $date = Carbon::create($this->selectedYear, $this->selectedMonth, 1)->subMonths($i);
-            $total = Expense::forUser($userId)
-                ->inMonth($date->month, $date->year)
-                ->sum('amount');
             $this->monthlyComparison->push([
                 'month' => $date->format('M'),
-                'total' => $total,
+                'total' => (float) ($monthlyTotals[$date->format('Y-m')] ?? 0),
             ]);
-
         }
 
         // top categories
@@ -110,15 +124,20 @@ class Dashboard extends Component
     {
         $this->loadDashboardData();
     }
+
     public function updatedSelectedYear()
     {
         $this->loadDashboardData();
     }
+
     public function previousMonth()
     {
         $date = Carbon::create($this->selectedYear, $this->selectedMonth, 1)->subMonth();
         $this->selectedMonth = $date->month;
         $this->selectedYear = $date->year;
+        // Assigning properties inside an action doesn't fire the updatedSelected*
+        // hooks, so refresh the stats + charts explicitly.
+        $this->loadDashboardData();
     }
 
     public function nextMonth()
@@ -126,7 +145,9 @@ class Dashboard extends Component
         $date = Carbon::create($this->selectedYear, $this->selectedMonth, 1)->addMonth();
         $this->selectedMonth = $date->month;
         $this->selectedYear = $date->year;
+        $this->loadDashboardData();
     }
+
     public function render()
     {
         return view('livewire.dashboard');

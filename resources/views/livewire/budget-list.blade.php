@@ -1,25 +1,23 @@
-<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300 rounded">
-    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex items-center justify-between">
+<div>
+    <div class="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div>
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-white">Budgets</h1>
-                    <p class="text-indigo-100 mt-1">Plan and track your spending limits</p>
+                    <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Budgets</h1>
+                    <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Plan and track your spending limits</p>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <button wire:click="previousMonth" class="p-2 bg-white/20 hover:bg-white/30 rounded-lg text-white transition backdrop-blur-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="flex items-center gap-1 self-start rounded-xl border border-zinc-200 bg-white p-1 shadow-sm sm:self-auto dark:border-zinc-800 dark:bg-zinc-900">
+                    <button wire:click="previousMonth" class="rounded-lg p-2 text-zinc-500 transition hover:bg-zinc-100 hover:text-teal-600 dark:hover:bg-zinc-800 dark:hover:text-teal-300" aria-label="Previous month">
+                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
                     </button>
-
-                    <button wire:click="setCurrentMonth" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-white font-semibold transition backdrop-blur-sm">
+                    <button wire:click="setCurrentMonth" class="rounded-lg px-4 py-2 text-sm font-semibold text-zinc-800 transition hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-800">
                         {{ \Carbon\Carbon::create($selectedYear, $selectedMonth, 1)->format('F Y') }}
                     </button>
-
-                    <button wire:click="nextMonth" class="p-2 bg-white/20 hover:bg-white/30 rounded-lg text-white transition backdrop-blur-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button wire:click="nextMonth" class="rounded-lg p-2 text-zinc-500 transition hover:bg-zinc-100 hover:text-teal-600 dark:hover:bg-zinc-800 dark:hover:text-teal-300" aria-label="Next month">
+                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
@@ -82,7 +80,7 @@
          <div class="flex items-center justify-between mb-6">
             <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Category Budgets</h3>
             <a href="/budgets/create"
-                class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition flex items-center gap-2">
+                class="bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
@@ -213,8 +211,8 @@
         @else
             <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-12 text-center transition-colors duration-300">
                 <div class="flex justify-center mb-4">
-                    <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-full">
-                        <svg class="w-16 h-16 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-4 bg-teal-50 dark:bg-teal-900/20 rounded-full">
+                        <svg class="w-16 h-16 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                         </svg>
@@ -226,7 +224,7 @@
                 <p class="text-gray-500 dark:text-gray-400 mb-6">Create budgets to track your spending and stay on target
                     with your financial goals.</p>
                 <a href="/budgets/create"
-                    class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+                    class="inline-flex items-center gap-2 bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -236,16 +234,16 @@
         @endif
 
         @if($budgets->count() > 0)
-            <div class="mt-8 bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-200 dark:border-indigo-800/30 rounded-xl p-6 transition-colors duration-300">
+            <div class="mt-8 bg-teal-50 dark:bg-teal-900/10 border border-teal-200 dark:border-teal-800/30 rounded-xl p-6 transition-colors duration-300">
                 <div class="flex items-start gap-3">
-                    <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-6 h-6 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
                             d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                             clip-rule="evenodd" />
                     </svg>
                     <div>
-                        <h4 class="font-semibold text-indigo-900 dark:text-indigo-300 mb-2">💡 Budget Tips</h4>
-                        <ul class="text-sm text-indigo-800 dark:text-indigo-400 space-y-1">
+                        <h4 class="font-semibold text-teal-900 dark:text-teal-300 mb-2">💡 Budget Tips</h4>
+                        <ul class="text-sm text-teal-800 dark:text-teal-400 space-y-1">
                             <li>• Set realistic budgets based on your historical spending patterns</li>
                             <li>• Create category-specific budgets for better control</li>
                             <li>• Review and adjust your budgets monthly</li>

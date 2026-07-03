@@ -18,7 +18,7 @@ https://github.com/HuMangax/expense-tracking-application
 * **🗂️ Custom Categories:** Organize budgets and expenses with custom, color-coded categories.
 * **🎯 Budget Management:** Create overall and category-specific budgets, with visual progress bars tracking usage and remaining funds.
 * **🔔 Email Notifications:** Automated alerts when spending exceeds your allocated budget.
-* **🎨 Slick UI · Light & Dark:** A cohesive indigo → violet design with smooth, interactive micro-animations and a Light/Dark toggle (defaults to dark, remembers your choice). Fully responsive across mobile, tablet, and desktop.
+* **🎨 Slick UI · Light & Dark:** A modern **teal → emerald** design on cool slate neutrals — a full-width **top navigation bar**, a **bento-grid dashboard**, and distinctive **Space Grotesk + Manrope** typography. Smooth, interactive micro-animations and a Light/Dark toggle (defaults to dark, remembers your choice). Fully responsive across mobile, tablet, and desktop.
 * **🔐 Advanced Security:** Authentication with profile management, password updates, and Two-Factor Authentication (2FA), powered by Laravel Fortify.
 
 ---

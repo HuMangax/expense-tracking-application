@@ -1,13 +1,13 @@
-<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
-    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg transition-colors duration-300">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div>
+    <div class="mx-auto max-w-5xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div>
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-white">Add Multiple Expenses</h1>
-                    <p class="text-indigo-100 mt-1">Enter several one-time expenses and save them all at once</p>
+                    <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Add Multiple Expenses</h1>
+                    <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Enter several one-time expenses and save them all at once</p>
                 </div>
                 <a href="{{ route('expenses.index') }}" wire:navigate
-                    class="p-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition backdrop-blur-sm" aria-label="Cancel">
+                    class="inline-flex items-center justify-center rounded-lg border border-zinc-200 bg-white p-2 text-zinc-600 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800" aria-label="Cancel">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -38,7 +38,7 @@
                             <div>
                                 <label class="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400 md:hidden">Title</label>
                                 <input type="text" wire:model="rows.{{ $i }}.title" placeholder="e.g., Groceries"
-                                    class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('rows.'.$i.'.title') border-red-500 @else border-gray-300 dark:border-neutral-600 @enderror">
+                                    class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent @error('rows.'.$i.'.title') border-red-500 @else border-gray-300 dark:border-neutral-600 @enderror">
                                 @error('rows.'.$i.'.title')
                                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
@@ -50,7 +50,7 @@
                                 <div class="relative">
                                     <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">$</span>
                                     <input type="number" step="0.01" min="0.01" wire:model.live.debounce.400ms="rows.{{ $i }}.amount" placeholder="0.00"
-                                        class="w-full pl-7 pr-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('rows.'.$i.'.amount') border-red-500 @else border-gray-300 dark:border-neutral-600 @enderror">
+                                        class="w-full pl-7 pr-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent @error('rows.'.$i.'.amount') border-red-500 @else border-gray-300 dark:border-neutral-600 @enderror">
                                 </div>
                                 @error('rows.'.$i.'.amount')
                                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -61,7 +61,7 @@
                             <div>
                                 <label class="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400 md:hidden">Category</label>
                                 <select wire:model="rows.{{ $i }}.category_id"
-                                    class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('rows.'.$i.'.category_id') border-red-500 @else border-gray-300 dark:border-neutral-600 @enderror">
+                                    class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent @error('rows.'.$i.'.category_id') border-red-500 @else border-gray-300 dark:border-neutral-600 @enderror">
                                     <option value="">Uncategorized</option>
                                     @foreach($this->categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -76,7 +76,7 @@
                             <div>
                                 <label class="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400 md:hidden">Date</label>
                                 <input type="date" wire:model="rows.{{ $i }}.date"
-                                    class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('rows.'.$i.'.date') border-red-500 @else border-gray-300 dark:border-neutral-600 @enderror">
+                                    class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent @error('rows.'.$i.'.date') border-red-500 @else border-gray-300 dark:border-neutral-600 @enderror">
                                 @error('rows.'.$i.'.date')
                                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
@@ -100,7 +100,7 @@
                 {{-- Add row --}}
                 <div class="mt-4">
                     <button type="button" wire:click="addRow"
-                        class="inline-flex items-center gap-2 rounded-lg border border-dashed border-indigo-300 dark:border-indigo-700 px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 transition hover:bg-indigo-50 dark:hover:bg-indigo-900/20">
+                        class="inline-flex items-center gap-2 rounded-lg border border-dashed border-teal-300 dark:border-teal-700 px-4 py-2 text-sm font-medium text-teal-600 dark:text-teal-400 transition hover:bg-teal-50 dark:hover:bg-teal-900/20">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
@@ -123,7 +123,7 @@
                         Cancel
                     </a>
                     <button type="submit" wire:loading.attr="disabled" wire:target="save"
-                        class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                        class="px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
                         <svg wire:loading.remove wire:target="save" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>

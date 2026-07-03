@@ -9,37 +9,70 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Body / UI text */
+    --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Headings / display */
+    --font-display: 'Space Grotesk', var(--font-sans);
 
-    --color-zinc-50: #fafafa;
-    --color-zinc-100: #f5f5f5;
-    --color-zinc-200: #e5e5e5;
-    --color-zinc-300: #d4d4d4;
-    --color-zinc-400: #a3a3a3;
-    --color-zinc-500: #737373;
-    --color-zinc-600: #525252;
-    --color-zinc-700: #404040;
-    --color-zinc-800: #262626;
-    --color-zinc-900: #171717;
-    --color-zinc-950: #0a0a0a;
+    /* Neutrals: cool slate (was flat neutral-gray) so surfaces read cooler and
+       distinct from the starter kit. Every `zinc-*` class in the views inherits
+       these values, so the shift happens without touching markup. */
+    --color-zinc-50: #f8fafc;
+    --color-zinc-100: #f1f5f9;
+    --color-zinc-200: #e2e8f0;
+    --color-zinc-300: #cbd5e1;
+    --color-zinc-400: #94a3b8;
+    --color-zinc-500: #64748b;
+    --color-zinc-600: #475569;
+    --color-zinc-700: #334155;
+    --color-zinc-800: #1e293b;
+    --color-zinc-900: #0f172a;
+    --color-zinc-950: #020617;
 
-    /* Brand: indigo → violet */
-    --color-accent: var(--color-indigo-600);
-    --color-accent-content: var(--color-indigo-600);
+    /* The feature pages mix zinc / neutral / gray for their neutrals. Alias the
+       other two ramps onto the slate zinc above so every surface reads cohesively
+       from a single source of truth. */
+    --color-neutral-50: var(--color-zinc-50);
+    --color-neutral-100: var(--color-zinc-100);
+    --color-neutral-200: var(--color-zinc-200);
+    --color-neutral-300: var(--color-zinc-300);
+    --color-neutral-400: var(--color-zinc-400);
+    --color-neutral-500: var(--color-zinc-500);
+    --color-neutral-600: var(--color-zinc-600);
+    --color-neutral-700: var(--color-zinc-700);
+    --color-neutral-800: var(--color-zinc-800);
+    --color-neutral-900: var(--color-zinc-900);
+    --color-neutral-950: var(--color-zinc-950);
+
+    --color-gray-50: var(--color-zinc-50);
+    --color-gray-100: var(--color-zinc-100);
+    --color-gray-200: var(--color-zinc-200);
+    --color-gray-300: var(--color-zinc-300);
+    --color-gray-400: var(--color-zinc-400);
+    --color-gray-500: var(--color-zinc-500);
+    --color-gray-600: var(--color-zinc-600);
+    --color-gray-700: var(--color-zinc-700);
+    --color-gray-800: var(--color-zinc-800);
+    --color-gray-900: var(--color-zinc-900);
+    --color-gray-950: var(--color-zinc-950);
+
+    /* Brand: teal → emerald */
+    --color-accent: var(--color-teal-600);
+    --color-accent-content: var(--color-teal-600);
     --color-accent-foreground: var(--color-white);
 
-    --color-brand-from: var(--color-indigo-600);
-    --color-brand-to: var(--color-violet-600);
+    --color-brand-from: var(--color-teal-500);
+    --color-brand-to: var(--color-emerald-500);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-indigo-500);
-        --color-accent-content: var(--color-indigo-400);
+        --color-accent: var(--color-teal-500);
+        --color-accent-content: var(--color-teal-400);
         --color-accent-foreground: var(--color-white);
 
-        --color-brand-from: var(--color-indigo-500);
-        --color-brand-to: var(--color-violet-500);
+        --color-brand-from: var(--color-teal-400);
+        --color-brand-to: var(--color-emerald-400);
     }
 }
 
@@ -73,11 +106,19 @@ select:focus[data-flux-control] {
 } */
 
 /* ------------------------------------------------------------------ */
-/*  Design system — indigo → violet                                    */
+/*  Design system — teal → emerald                                     */
 /* ------------------------------------------------------------------ */
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Headings wear the display face; body stays on Manrope. */
+h1, h2, h3, h4,
+.font-display,
+.brand-text {
+    font-family: var(--font-display);
+    letter-spacing: -0.011em;
 }
 
 /* Slim, on-brand scrollbar */
@@ -102,11 +143,11 @@ html {
     background-color: var(--color-zinc-700);
 }
 *::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-indigo-400);
+    background-color: var(--color-teal-400);
 }
 
 ::selection {
-    background-color: color-mix(in oklab, var(--color-indigo-500) 30%, transparent);
+    background-color: color-mix(in oklab, var(--color-teal-500) 30%, transparent);
 }
 
 /* Brand gradient helpers */
@@ -127,7 +168,7 @@ html {
 }
 .hover-lift:hover {
     transform: translateY(-3px);
-    box-shadow: 0 18px 40px -16px color-mix(in oklab, var(--color-indigo-500) 45%, transparent);
+    box-shadow: 0 18px 40px -16px color-mix(in oklab, var(--color-teal-500) 45%, transparent);
 }
 
 /* Subtle entrance animation for page content */
@@ -147,5 +188,5 @@ html {
 
 /* Soft ring used on focusable tiles */
 .ring-brand {
-    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-indigo-500) 35%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-teal-500) 35%, transparent);
 }

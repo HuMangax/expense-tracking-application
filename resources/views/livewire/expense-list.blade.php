@@ -1,29 +1,29 @@
-<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
-    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex items-center justify-between">
+<div>
+    <div class="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div>
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-white">Expenses</h1>
-                    <p class="text-indigo-100 mt-1">Manage and track your expenses</p>
+                    <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Expenses</h1>
+                    <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Manage and track your expenses</p>
                 </div>
                 
                 <div class="flex items-center gap-3">
                     <a href="{{ route('expenses.import') }}" wire:navigate
-                        class="bg-white/10 hover:bg-white/20 text-white px-5 py-3 rounded-lg font-semibold transition backdrop-blur-sm flex items-center gap-2 ring-1 ring-white/30">
+                        class="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 12V3m0 9l-3-3m3 3l3-3" />
                         </svg>
                         Import CSV
                     </a>
                     <a href="{{ route('expenses.bulk') }}" wire:navigate
-                        class="bg-white/10 hover:bg-white/20 text-white px-5 py-3 rounded-lg font-semibold transition backdrop-blur-sm flex items-center gap-2 ring-1 ring-white/30">
+                        class="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h10M4 18h10" />
                         </svg>
                         Add Multiple
                     </a>
                     <a href="/expenses/create" wire:navigate
-                        class="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg font-semibold transition backdrop-blur-sm flex items-center gap-2">
+                        class="brand-gradient inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:opacity-90">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
@@ -53,7 +53,7 @@
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Filters</h3>
                 <button wire:click="$toggle('showFilters')"
-                    class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 text-sm font-medium">
+                    class="text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 text-sm font-medium">
                     {{ $showFilters ? 'Hide' : 'Show' }} Filters
                 </button>
             </div>
@@ -62,13 +62,13 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search</label>
                     <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search expenses..."
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400">
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category</label>
                     <select wire:model.live="selectedCategory"
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-teal-500 focus:border-transparent">
                         <option value="">All Categories</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -79,13 +79,13 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Start Date</label>
                     <input type="date" wire:model.live="startDate"
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark]">
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-teal-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark]">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">End Date</label>
                     <input type="date" wire:model.live="endDate"
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark]">
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg text-gray-900 dark:text-white bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-teal-500 focus:border-transparent [color-scheme:light] dark:[color-scheme:dark]">
                 </div>
             </div>
 
@@ -95,7 +95,7 @@
                         Showing {{ $expenses->count() }} of {{ $expenses->total() }} expenses
                         <span class="font-semibold text-gray-900 dark:text-gray-200">• Total: ${{ number_format($total, 2) }}</span>
                     </div>
-                    <button wire:click="clearFilters" class="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium">
+                    <button wire:click="clearFilters" class="text-sm text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-medium">
                         Clear Filters
                     </button>
                 </div>
@@ -207,7 +207,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex items-center justify-end gap-2">
                                         <a href="/expenses/{{ $expense->id }}/edit"
-                                            class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 transition-colors">
+                                            class="text-teal-600 dark:text-teal-400 hover:text-teal-900 dark:hover:text-teal-300 transition-colors">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -236,7 +236,7 @@
                                         <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No expenses found</h3>
                                         <p class="text-gray-600 dark:text-gray-400 mb-4">Start tracking your expenses to see them here.</p>
                                         <a href="/expenses/create"
-                                            class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+                                            class="inline-flex items-center gap-2 bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
                                             Add Your First Expense
                                         </a>
                                     </div>

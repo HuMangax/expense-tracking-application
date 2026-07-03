@@ -22,12 +22,15 @@ services:
         sync: false
       - key: DB_SSLMODE
         value: require
+      # Keep sessions & cache OFF the (remote) database so every request doesn't pay
+      # cross-region round-trips just to read/write the session. cookie = stateless,
+      # survives redeploys; file cache is local + persists rate-limit counters.
       - key: SESSION_DRIVER
-        value: database
+        value: cookie
       - key: QUEUE_CONNECTION
         value: sync
       - key: CACHE_STORE
-        value: database
+        value: file
       - key: LOG_CHANNEL
         value: stderr
       - key: MAIL_MAILER

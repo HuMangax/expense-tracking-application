@@ -1,17 +1,17 @@
-<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
-    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg transition-colors duration-300">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div>
+    <div class="mx-auto max-w-4xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div>
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-white">
+                    <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
                         {{ $isEdit ? 'Edit Budget' : 'Create New Budget' }}
                     </h1>
-                    <p class="text-indigo-100 mt-1">
+                    <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
                         {{ $isEdit ? 'Update your budget details' : 'Set spending limits for better financial control' }}
                     </p>
                 </div>
-                <a href="/budgets"
-                    class="p-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition backdrop-blur-sm">
+                <a href="/budgets" wire:navigate
+                    class="inline-flex items-center justify-center rounded-lg border border-zinc-200 bg-white p-2 text-zinc-600 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />
@@ -26,7 +26,7 @@
         <form wire:submit="save" class="space-y-6">
             <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 transition-colors duration-300">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                    <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor"
+                    <svg class="w-6 h-6 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -42,7 +42,7 @@
                             Month <span class="text-red-500">*</span>
                         </label>
                         <select wire:model="month" id="month"
-                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('month') border-red-500 @enderror">
+                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent @error('month') border-red-500 @enderror">
                             <option value="">Select Month</option>
                             @foreach($months as $monthOption)
                                 <option value="{{ $monthOption['value'] }}">{{ $monthOption['name'] }}</option>
@@ -59,7 +59,7 @@
                             Year <span class="text-red-500">*</span>
                         </label>
                         <select wire:model="year" id="year"
-                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('year') border-red-500 @enderror">
+                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent @error('year') border-red-500 @enderror">
                             <option value="">Select Year</option>
                             @foreach($years as $yearOption)
                                 <option value="{{ $yearOption }}">{{ $yearOption }}</option>
@@ -75,7 +75,7 @@
             <!-- Budget Details Card -->
             <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 transition-colors duration-300">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                    <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor"
+                    <svg class="w-6 h-6 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -92,7 +92,7 @@
                             Category
                         </label>
                         <select wire:model="category_id" id="category_id"
-                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('category_id') border-red-500 @enderror">
+                            class="w-full px-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent @error('category_id') border-red-500 @enderror">
                             <option value="">Overall Budget (All Categories)</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -117,7 +117,7 @@
                             @if($hasHistoricalData && $month && $year && !$isEdit)
                                 <button type="button" wire:click="getAIRecommendation" wire:loading.attr="disabled"
                                     wire:target="getAIRecommendation"
-                                    class="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition disabled:opacity-50">
+                                    class="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition disabled:opacity-50">
                                     <svg wire:loading.remove wire:target="getAIRecommendation" class="w-4 h-4" fill="none"
                                         stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -154,7 +154,7 @@
                                 <span class="text-gray-500 dark:text-gray-400 text-xl">$</span>
                             </div>
                             <input type="number" id="amount" wire:model="amount" step="0.01" min="0" placeholder="0.00"
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400 text-lg @error('amount') border-red-500 @enderror">
+                                class="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-400 text-lg @error('amount') border-red-500 @enderror">
                         </div>
 
 
@@ -166,7 +166,7 @@
                     <!-- AI Recommendation Panel -->
                     @if($showAIRecommendation && $aiRecommendation)
                         <div
-                            class="relative bg-gradient-to-br from-violet-50 via-indigo-50 to-indigo-50 dark:from-violet-950/40 dark:via-indigo-950/40 dark:to-indigo-950/40 border-2 border-violet-200 dark:border-violet-800/40 rounded-xl p-6 shadow-lg">
+                            class="relative bg-gradient-to-br from-emerald-50 via-teal-50 to-teal-50 dark:from-emerald-950/40 dark:via-teal-950/40 dark:to-teal-950/40 border-2 border-emerald-200 dark:border-emerald-800/40 rounded-xl p-6 shadow-lg">
                             <!-- Close Button -->
                             <button type="button" wire:click="closeAIRecommendation"
                                 class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:text-zinc-500 dark:hover:text-zinc-300">
@@ -179,7 +179,7 @@
                             <!-- AI Badge -->
                             <div class="flex items-center gap-2 mb-4">
                                 <div
-                                    class="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-full text-sm font-semibold">
+                                    class="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-full text-sm font-semibold">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
@@ -195,21 +195,21 @@
                             <!-- Recommended Amounts -->
                             <div class="grid grid-cols-3 gap-4 mb-4">
                                 <button type="button" wire:click="applyRecommendation('min')"
-                                    class="p-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-gray-200 dark:border-zinc-700 hover:border-violet-400 dark:hover:border-violet-500 hover:shadow-md transition text-center">
+                                    class="p-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-gray-200 dark:border-zinc-700 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition text-center">
                                     <p class="text-xs text-gray-600 dark:text-zinc-400 mb-1">Conservative</p>
                                     <p class="text-2xl font-bold text-gray-900 dark:text-white">
                                         ${{ number_format($aiRecommendation['min'], 0) }}</p>
                                 </button>
 
                                 <button type="button" wire:click="applyRecommendation('recommended')"
-                                    class="p-4 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-lg text-white hover:shadow-xl transition text-center transform hover:scale-105">
+                                    class="p-4 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg text-white hover:shadow-xl transition text-center transform hover:scale-105">
                                     <p class="text-xs mb-1 opacity-90">Recommended</p>
                                     <p class="text-2xl font-bold">${{ number_format($aiRecommendation['recommended'], 0) }}
                                     </p>
                                 </button>
 
                                 <button type="button" wire:click="applyRecommendation('max')"
-                                    class="p-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-gray-200 dark:border-zinc-700 hover:border-violet-400 dark:hover:border-violet-500 hover:shadow-md transition text-center">
+                                    class="p-4 bg-white dark:bg-zinc-800 rounded-lg border-2 border-gray-200 dark:border-zinc-700 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition text-center">
                                     <p class="text-xs text-gray-600 dark:text-zinc-400 mb-1">Comfortable</p>
                                     <p class="text-2xl font-bold text-gray-900 dark:text-white">
                                         ${{ number_format($aiRecommendation['max'], 0) }}</p>
@@ -219,7 +219,7 @@
                             <!-- Explanation -->
                             <div class="bg-white dark:bg-zinc-800 rounded-lg p-4 mb-3">
                                 <p class="text-sm text-gray-800 dark:text-zinc-200 leading-relaxed">
-                                    <strong class="text-violet-700 dark:text-violet-400">Why this amount:</strong>
+                                    <strong class="text-emerald-700 dark:text-emerald-400">Why this amount:</strong>
                                     {{ $aiRecommendation['explanation'] }}
                                 </p>
                             </div>
@@ -245,21 +245,21 @@
                     <!-- Preview Card -->
                     @if($amount && $month && $year)
                         <div
-                            class="p-4 bg-gradient-to-r from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20 rounded-lg border-2 border-indigo-200 dark:border-indigo-800/30">
-                            <p class="text-sm font-medium text-indigo-900 dark:text-indigo-300 mb-2">Budget Preview:</p>
+                            class="p-4 bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-teal-900/20 dark:to-emerald-900/20 rounded-lg border-2 border-teal-200 dark:border-teal-800/30">
+                            <p class="text-sm font-medium text-teal-900 dark:text-teal-300 mb-2">Budget Preview:</p>
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <p class="text-2xl font-bold text-indigo-900 dark:text-indigo-100">
+                                    <p class="text-2xl font-bold text-teal-900 dark:text-teal-100">
                                         ${{ number_format($amount, 2) }}</p>
-                                    <p class="text-sm text-indigo-700 dark:text-indigo-400">
+                                    <p class="text-sm text-teal-700 dark:text-teal-400">
                                         {{ $category_id ? $categories->find($category_id)->name : 'Overall Budget' }}
                                     </p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-sm text-indigo-700 dark:text-indigo-400">
+                                    <p class="text-sm text-teal-700 dark:text-teal-400">
                                         {{ \Carbon\Carbon::create($year, $month, 1)->format('F Y') }}
                                     </p>
-                                    <p class="text-xs text-indigo-600 dark:text-indigo-500 mt-1">
+                                    <p class="text-xs text-teal-600 dark:text-teal-500 mt-1">
                                         ≈ ${{ number_format($amount / 30, 2) }}/day
                                     </p>
                                 </div>
@@ -272,17 +272,17 @@
 
 
             <!-- Tips Card -->
-            <div class="bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-200 dark:border-indigo-800/30 rounded-xl p-6">
+            <div class="bg-teal-50 dark:bg-teal-900/10 border border-teal-200 dark:border-teal-800/30 rounded-xl p-6">
                 <div class="flex items-start gap-3">
-                    <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" fill="currentColor"
+                    <svg class="w-6 h-6 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" fill="currentColor"
                         viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
                             d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                             clip-rule="evenodd" />
                     </svg>
                     <div>
-                        <h4 class="font-semibold text-indigo-900 dark:text-indigo-300 mb-2">💡 Budget Tips</h4>
-                        <ul class="text-sm text-indigo-800 dark:text-indigo-400 space-y-1">
+                        <h4 class="font-semibold text-teal-900 dark:text-teal-300 mb-2">💡 Budget Tips</h4>
+                        <ul class="text-sm text-teal-800 dark:text-teal-400 space-y-1">
                             <li>• <strong>Start with historical data:</strong> Review your past spending to set
                                 realistic budgets</li>
                             <li>• <strong>Use the 50/30/20 rule:</strong> 50% needs, 30% wants, 20% savings</li>
@@ -306,7 +306,7 @@
                     Cancel
                 </a>
                 <button type="submit"
-                    class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                    class="px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>

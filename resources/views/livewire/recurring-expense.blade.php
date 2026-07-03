@@ -1,12 +1,12 @@
-<div class="-m-6 lg:-m-8 min-h-screen bg-gray-50 dark:bg-neutral-900 transition-colors duration-300">
-    <div class="bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex items-center justify-between">
+<div>
+    <div class="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div>
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-white">Recurring Expenses</h1>
-                    <p class="text-indigo-100 mt-1">Manage your subscriptions and recurring bills</p>
+                    <h1 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Recurring Expenses</h1>
+                    <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Manage your subscriptions and recurring bills</p>
                 </div>
-                <a href="/expenses/create" class="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg font-semibold transition backdrop-blur-sm flex items-center gap-2">
+                <a href="/expenses/create" wire:navigate class="brand-gradient inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:opacity-90">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -30,21 +30,21 @@
         @endif
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-indigo-500 transition-all">
+            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-teal-500 transition-all">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-1 font-medium">Active Recurring</p>
                         <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $recurringExpenses->count() }}</p>
                     </div>
-                    <div class="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
-                        <svg class="w-8 h-8 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-3 bg-teal-100 dark:bg-teal-900/30 rounded-lg">
+                        <svg class="w-8 h-8 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-violet-500 transition-all">
+            <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 border-l-4 border-emerald-500 transition-all">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-1 font-medium">Monthly Total</p>
@@ -52,8 +52,8 @@
                             ${{ number_format($recurringExpenses->where('recurring_frequency', 'monthly')->sum('amount'), 2) }}
                         </p>
                     </div>
-                    <div class="p-3 bg-violet-100 dark:bg-violet-900/30 rounded-lg">
-                        <svg class="w-8 h-8 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
+                        <svg class="w-8 h-8 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                     </div>
@@ -117,7 +117,7 @@
 
                             <div class="flex items-center justify-between">
                                 <span class="text-gray-500 dark:text-gray-400 text-sm">Frequency</span>
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-teal-100 dark:bg-teal-900/40 text-teal-800 dark:text-teal-300">
                                     {{ ucfirst($expense->recurring_frequency) }}
                                 </span>
                             </div>
@@ -138,7 +138,7 @@
                             <div class="pt-2 border-t border-gray-100 dark:border-neutral-700">
                                 <div class="flex items-center justify-between text-sm">
                                     <span class="text-gray-500 dark:text-gray-400">Total Generated</span>
-                                    <span class="font-bold text-violet-600 dark:text-violet-400">
+                                    <span class="font-bold text-emerald-600 dark:text-emerald-400">
                                         {{ $expense->childExpenses->count() }} expenses
                                     </span>
                                 </div>
@@ -150,15 +150,15 @@
         @else
             <div class="bg-white dark:bg-neutral-800 rounded-xl shadow-md p-12 text-center transition-all">
                 <div class="flex justify-center mb-4">
-                    <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-full">
-                        <svg class="w-16 h-16 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-4 bg-teal-50 dark:bg-teal-900/20 rounded-full">
+                        <svg class="w-16 h-16 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
                     </div>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">No Recurring Expenses Yet</h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-6">Set up recurring expenses like subscriptions or rent to track them automatically.</p>
-                <a href="/expenses/create" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+                <a href="/expenses/create" class="inline-flex items-center gap-2 bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition">
                     New Recurring Expense
                 </a>
             </div>

@@ -27,6 +27,9 @@ RUN npm ci && npm run build
 FROM dunglas/frankenphp:1-php8.4
 RUN install-php-extensions pdo_pgsql intl zip bcmath opcache
 
+# Production OPcache/JIT tuning (see docker/opcache.ini).
+COPY docker/opcache.ini /usr/local/etc/php/conf.d/zz-opcache.ini
+
 # Render's runtime drops CAP_NET_BIND_SERVICE from the bounding set, which makes
 # execve() of the capability-carrying frankenphp binary fail with EPERM
 # ("Operation not permitted"). We bind to a high port ($PORT), so strip the cap.
