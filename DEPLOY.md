@@ -105,8 +105,15 @@ you set env vars **manually** in the Render dashboard, change those two there to
 for it to wake. The app-level tuning here (config/route/view cache + OPcache JIT) only speeds *warm*
 requests. To avoid the cold hit:
 - **Keep it warm (free):** at **cron-job.org**, add a job that GETs
-  `https://<your-app>.onrender.com/login` every **10 minutes**. One always-on service still fits
+  `https://<your-app>.onrender.com/up` every **10 minutes**. One always-on service still fits
   Render's free **750 instance-hours/month** (~730h in a month).
+  - **Use `/up`, not a real page.** cron-job.org fails any response over **8 KB (headers + body)**
+    with `Failed (output too large)`. `/login` is ~22 KB, so it always fails; `/up` (Laravel's
+    built-in health route) is ~2 KB, sets no cookies, and never touches the database.
+  - After more than **25 failures in a row** cron-job.org **disables the job** — re-enable it once
+    the URL is fixed.
+  - Its timeout is **30 s** but a cold start takes ~50 s, so a run right after the app slept may show
+    `Failed (timeout)`. That's harmless: the request still wakes the app.
 - **Upgrade:** Render's paid **Starter** tier never sleeps and removes cold starts entirely.
 
 ---
