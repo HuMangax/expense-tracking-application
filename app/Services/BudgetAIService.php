@@ -2,15 +2,18 @@
 
 namespace App\Services;
 
-use Carbon\Carbon;
-use App\Models\Expense;
 use App\Models\Category;
+use App\Models\Expense;
+use Carbon\Carbon;
 use Gemini\Laravel\Facades\Gemini;
 use Illuminate\Support\Facades\Log;
 
-class BudgetAIService {
+class BudgetAIService
+{
     public function getBudgetRecommendation(?int $categoryId, int $userId, int $month, int $year): ?array
     {
+        $historicalData = null;
+
         try {
             $historicalData = $this->getHistoricalSpending($categoryId, $userId, $month, $year);
 
@@ -25,26 +28,28 @@ class BudgetAIService {
             return $this->parseAIResponse($response->text(), $historicalData);
 
         } catch (\Exception $e) {
-            Log::error('Budget AI Recommendation Error:' . $e->getMessage());
+            Log::error('Budget AI Recommendation Error:'.$e->getMessage());
             // CRITICAL: If the API fails, STILL try to return the fallback!
-            if (!empty($historicalData)) {
+            if (! empty($historicalData)) {
                 return $this->getFallbackRecommendation($historicalData);
             }
+
             return null;
         }
     }
 
-    private function getHistoricalSpending(?int $categoryId, int $userId, int $targetMonth, int $targetYear){
+    private function getHistoricalSpending(?int $categoryId, int $userId, int $targetMonth, int $targetYear)
+    {
         $expenses = [];
         $monthlyTotals = [];
 
         // get the last 3 months of data (exclude the target month)
-        for($i = 1; $i <= 3; $i++){
-            $date = Carbon::create($targetYear,$targetMonth,1)->subMonths($i);
-            
+        for ($i = 1; $i <= 3; $i++) {
+            $date = Carbon::create($targetYear, $targetMonth, 1)->subMonths($i);
+
             $query = Expense::where('user_id', $userId)
-            ->whereMonth('date', $date->month)
-            ->whereYear('date', $date->year);
+                ->whereMonth('date', $date->month)
+                ->whereYear('date', $date->year);
 
             if ($categoryId) {
                 $query->where('category_id', $categoryId);
@@ -62,32 +67,40 @@ class BudgetAIService {
                 ];
                 $monthlyTotals[] = $total;
             }
-
-            return [
-                'expenses'=> $expenses,
-                'average'=> !empty($monthlyTotals) ? array_sum($monthlyTotals) / count($monthlyTotals) : 0,
-                'min'=> !empty($monthlyTotals) ? min($monthlyTotals) : 0,
-                'max'=> !empty($monthlyTotals) ? max($monthlyTotals) : 0,
-                'trend' => $this->calculateTrend($monthlyTotals),
-            ];
         }
-        
+
+        // No spending in any of the three months — there's nothing to analyse.
+        if (empty($monthlyTotals)) {
+            return null;
+        }
+
+        // Returned AFTER the loop. This used to sit inside it, so the "last 3
+        // months" analysis only ever saw month 1: average == min == max, and
+        // the trend was always 'stable' because it needs two data points.
+        return [
+            'expenses' => $expenses,
+            'average' => array_sum($monthlyTotals) / count($monthlyTotals),
+            'min' => min($monthlyTotals),
+            'max' => max($monthlyTotals),
+            'trend' => $this->calculateTrend($monthlyTotals),
+        ];
     }
 
-    private function calculateTrend($monthlyTotals){
+    private function calculateTrend($monthlyTotals)
+    {
         if (count($monthlyTotals) < 2) {
             return 'stable';
         }
 
         // compare most recent month with the oldest month
         $recent = $monthlyTotals[0];
-        $oldest = $monthlyTotals[count($monthlyTotals) -1];
+        $oldest = $monthlyTotals[count($monthlyTotals) - 1];
 
-        $percentageChange = (($recent - $oldest) /$oldest) *100;
+        $percentageChange = (($recent - $oldest) / $oldest) * 100;
 
         if ($percentageChange > 10) {
             return 'increasing';
-        }elseif ($percentageChange < -10) {
+        } elseif ($percentageChange < -10) {
             return 'decreasing';
         }
 
@@ -95,27 +108,33 @@ class BudgetAIService {
     }
 
     // create the prompt for Gemini AI
-    private function createPrompt(array $historicalData, ?int $categoryId, int $month, int $year){
-        $categoryName = $categoryId ? Category::find($categoryId)?->name ?? 'this category' :'overall spending';
+    private function createPrompt(array $historicalData, ?int $categoryId, int $month, int $year)
+    {
+        $categoryName = $categoryId ? Category::find($categoryId)?->name ?? 'this category' : 'overall spending';
 
         $targetMonth = Carbon::create($year, $month, 1)->format('F Y');
 
         $prompt = "You are a personal finance advisor. Analyze the following spending data and provide a budget recommendation.\n\n";
 
         $prompt .= "Category: {$categoryName}\n";
-        $prompt .= "Target Month: {$targetMonth}";
+        $prompt .= "Target Month: {$targetMonth}\n";
         $prompt .= "Historical Spending (Last 3 Months): \n";
         foreach ($historicalData['expenses'] as $expense) {
-            $prompt .= "- {$expense['month']}: \${expense['total']} ({$expense['count']}) expenses)\n";
-            if (!empty($expense['expenses'])) {
-                $prompt .= " Top items: ". implode(', ', array_slice($expense['expenses'],0, 5));
+            // The amount needs its own concatenation: "{$expense['total']}" only
+            // interpolates with the leading $, and "\${expense['total']}" (the
+            // previous version) printed the array expression literally, so the
+            // model never actually received the monthly figures.
+            $prompt .= '- '.$expense['month'].': $'.number_format($expense['total'], 2)
+                .' ('.$expense['count'].' expenses)'."\n";
+            if (! empty($expense['expenses'])) {
+                $prompt .= ' Top items: '.implode(', ', array_slice($expense['expenses'], 0, 5))."\n";
             }
         }
 
         $prompt .= "\nSpending Statistics:\n";
-        $prompt .= "- Average: \$" . number_format($historicalData['average'], 2). "\n";
-        $prompt .= "- Minimum: \$" . number_format($historicalData['min'], 2) . "\n";
-        $prompt .= "- Maximum: \$" . number_format($historicalData['max'], 2) . "\n";
+        $prompt .= '- Average: $'.number_format($historicalData['average'], 2)."\n";
+        $prompt .= '- Minimum: $'.number_format($historicalData['min'], 2)."\n";
+        $prompt .= '- Maximum: $'.number_format($historicalData['max'], 2)."\n";
         $prompt .= "- Trend: {$historicalData['trend']}\n\n";
 
         $prompt .= "Based on this data, provide:\n";
@@ -127,7 +146,7 @@ class BudgetAIService {
 
         $prompt .= "Format your response as JSON with these exact keys:\n";
         $prompt .= '{"recommended": 500, "min": 450, "max": 550, "explanation": "...", "tip": "..."}';
-        
+
         return $prompt;
     }
 
@@ -137,7 +156,7 @@ class BudgetAIService {
     {
         try {
             // Log the raw response so you can see exactly what Gemini said in storage/logs/laravel.log
-            Log::info('Raw Gemini Response: ' . $response);
+            Log::info('Raw Gemini Response: '.$response);
 
             // Update the regex to capture multi-line JSON safely
             if (preg_match('/\{[\s\S]*\}/', $response, $matches)) {
@@ -154,31 +173,34 @@ class BudgetAIService {
                     ];
                 }
             }
+
             return $this->getFallbackRecommendation($historicalData);
         } catch (\Exception $e) {
             // ...
         }
     }
 
-    private function getFallbackRecommendation(array $historicalData){
+    private function getFallbackRecommendation(array $historicalData)
+    {
         $average = $historicalData['average'];
-        
+
         // Add 10% buffer for safety
         $recommended = round($average * 1.1, 2);
-        
+
         return [
             'recommended' => $recommended,
             'min' => round($average * 0.95, 2),
             'max' => round($average * 1.2, 2),
-            'explanation' => "Based on your average spending of $" . number_format($average, 2) . " over the last 3 months, with a 10% buffer for unexpected expenses.",
-            'tip' => "Review your expenses weekly to catch any overspending early.",
+            'explanation' => 'Based on your average spending of $'.number_format($average, 2).' over the last 3 months, with a 10% buffer for unexpected expenses.',
+            'tip' => 'Review your expenses weekly to catch any overspending early.',
             'confidence' => $this->calculateConfidence($historicalData),
         ];
     }
 
-    private function calculateConfidence(array $historicalData){
+    private function calculateConfidence(array $historicalData)
+    {
         $monthsWithData = count($historicalData['expenses']);
-        
+
         if ($monthsWithData >= 3) {
             return 'high';
         } elseif ($monthsWithData === 2) {
@@ -189,7 +211,7 @@ class BudgetAIService {
     }
 
     // check if the user has enough historical data
-// In BudgetAIService.php
+    // In BudgetAIService.php
 
     public function hasEnoughHistoricalData(?int $categoryId, int $userId)
     {

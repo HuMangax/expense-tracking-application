@@ -2,49 +2,57 @@
 
 namespace App\Livewire;
 
-use App\Models\Expense;
-use Livewire\Component;
 use App\Models\Category;
-use Livewire\WithPagination;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Computed;
+use App\Models\Expense;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+use Livewire\WithPagination;
 
-#[Title("Expenses")]
+#[Title('Expenses')]
 class ExpenseList extends Component
 {
     use WithPagination;
-    //public properties
-    public $search = "";
-    public $selectedCategory = "";
-    public $startDate = "";
-    public $endDate = "";
-    public $sortBy = "date";
-    public $sortDirection = "desc";
+
+    // public properties
+    public $search = '';
+
+    public $selectedCategory = '';
+
+    public $startDate = '';
+
+    public $endDate = '';
+
+    public $sortBy = 'date';
+
+    public $sortDirection = 'desc';
+
     public $showFilters = false;
 
     public function mount()
     {
-        //default to current month
+        // default to current month
         if (empty($this->startDate)) {
-            $this->startDate = now()->startOfMonth()->format("Y-m-d");
+            $this->startDate = now()->startOfMonth()->format('Y-m-d');
         }
         if (empty($this->endDate)) {
-            $this->endDate = now()->endOfMonth()->format("Y-m-d");
+            $this->endDate = now()->endOfMonth()->format('Y-m-d');
         }
     }
 
-     //sorting
+    // sorting
     public array $sortableFields = ['date', 'title', 'amount', 'category'];
 
-    public function sortByField($field){
+    public function sortByField($field)
+    {
         if (! in_array($field, $this->sortableFields, true)) {
             return;
         }
 
         if ($this->sortBy === $field) {
-            $this->sortDirection = $this->sortDirection == "asc"?"desc":"asc";
-        }else{
+            $this->sortDirection = $this->sortDirection == 'asc' ? 'desc' : 'asc';
+        } else {
             $this->sortBy = $field;
             $this->sortDirection = 'asc';
         }
@@ -52,31 +60,37 @@ class ExpenseList extends Component
         $this->resetPage();
     }
 
-    //deleting the expense
-    public function deleteExpense($expenseId){
+    // deleting the expense
+    public function deleteExpense($expenseId)
+    {
         $expense = Expense::findOrFail($expenseId);
 
         if ($expense->user_id !== Auth::user()->id) {
-            abort(403,'Your Not Authorized to Perform this function');
+            abort(403, 'Your Not Authorized to Perform this function');
         }
 
         $expense->delete();
 
-        session()->flash('message','Expense deleted successfully!');
+        session()->flash('message', 'Expense deleted successfully!');
     }
 
-
-    //computed property of expenses
-    #[Computed]
-    public function expenses()
+    /**
+     * The user's expenses with the active search and filters applied.
+     *
+     * Built in one place so the list and the total can't drift apart: the search
+     * term's two LIKEs MUST stay grouped in their own closure, otherwise SQL's
+     * AND-binds-tighter-than-OR turns the user scope into
+     * `(user_id = X AND title LIKE ...) OR (description LIKE ...)` and the
+     * second branch matches every user's rows.
+     */
+    protected function filteredQuery()
     {
-        $query = Expense::with('category')->forUser(Auth::user()->id);
+        $query = Expense::forUser(Auth::user()->id);
 
-        // Apply search and filters
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
+                $q->where('title', 'like', '%'.$this->search.'%')
+                    ->orWhere('description', 'like', '%'.$this->search.'%');
             });
         }
 
@@ -91,6 +105,15 @@ class ExpenseList extends Component
         if ($this->endDate) {
             $query->whereDate('date', '<=', $this->endDate);
         }
+
+        return $query;
+    }
+
+    // computed property of expenses
+    #[Computed]
+    public function expenses()
+    {
+        $query = $this->filteredQuery()->with('category');
 
         $direction = $this->sortDirection === 'asc' ? 'asc' : 'desc';
 
@@ -112,24 +135,7 @@ class ExpenseList extends Component
     #[Computed]
     public function total()
     {
-        $query = Expense::forUser(Auth::user()->id);
-        //apply search & filters
-        if ($this->search) {
-            $query->where('title', 'like', '%' . $this->search . '%')
-                ->orWhere('description', 'like', '%' . $this->search . '%');
-        }
-        if ($this->selectedCategory) {
-            $query->where('category_id', $this->selectedCategory);
-        }
-
-        if ($this->startDate) {
-            $query->whereDate('date', ">=", $this->startDate);
-        }
-        if ($this->endDate) {
-            $query->whereDate('date', "<=", $this->endDate);
-        }
-
-        return $query->sum('amount');
+        return $this->filteredQuery()->sum('amount');
     }
 
     #[Computed]
@@ -139,6 +145,7 @@ class ExpenseList extends Component
             ->orderBy('name')
             ->get();
     }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -173,7 +180,7 @@ class ExpenseList extends Component
         return view('livewire.expense-list', [
             'expenses' => $this->expenses,
             'total' => $this->total,
-            'categories' => $this->categories
+            'categories' => $this->categories,
         ]);
     }
 }
